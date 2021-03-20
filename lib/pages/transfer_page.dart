@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tflitestyletransfer/blocs/image_bloc.dart';
+import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransferPage extends StatefulWidget {
@@ -13,7 +13,7 @@ class _TransferPageState extends State<TransferPage> {
 
   @override
   void initState() {
-    imageBloc = context.bloc<ImageBloc>();
+    imageBloc = context.read<ImageBloc>();
     super.initState();
   }
 
@@ -64,7 +64,8 @@ class _TransferPageState extends State<TransferPage> {
                                 selectStyle = index;
                               });
 
-                              imageBloc.add(ImageEvent.transferImage(stylePath));
+                              imageBloc
+                                  .add(ImageEvent.transferImage(stylePath));
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(horizontal: 5),

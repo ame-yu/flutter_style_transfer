@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tflitestyletransfer/blocs/image_bloc.dart';
+import '../blocs/image_bloc.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                           RawMaterialButton(
                             onPressed: () {
                               context
-                                  .bloc<ImageBloc>()
+                                  .read<ImageBloc>()
                                   .add(ImageEvent.loadImage());
                             },
                             fillColor: Colors.white,

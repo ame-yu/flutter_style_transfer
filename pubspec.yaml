@@ -1,7 +1,6 @@
-name: tflitestyletransfer
-description: A new Flutter application.
-
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+name: flutter_style_transfer
+description: Flutter image style transfer
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -11,46 +10,33 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  path_provider: ^2.0.1
   url_launcher: ^5.7.10
   webview_flutter: ^1.0.7
   cupertino_icons: ^1.0.0
-  flutter_bloc: ^6.0.5
+  flutter_bloc: ^7.0.0
+  hydrated_bloc: ^7.0.0
   freezed_annotation:
-  image: ^2.1.12
+  image: ^3.0.2
   multi_image_picker: ^4.7.14
-  tflite_flutter: ^0.5.0
-    #path: plugins/tflite_flutter_plugin
+  tflite_flutter: ^0.6.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
   freezed:
-  flutter_launcher_icons: ^0.8.1
+  flutter_launcher_icons: ^0.9.0
 
 flutter_icons:
   android: true
   image_path: "assets/images/appIcon.png"
-# flutter pub run flutter_launcher_icons:main
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
 flutter:
   uses-material-design: true
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
     - assets/models/
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -69,5 +55,4 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,9 +1,9 @@
 // part of "../main.dart";
 import 'package:flutter/material.dart';
-import 'package:tflitestyletransfer/demopage/main_page.dart';
-import 'package:tflitestyletransfer/demopage/setting_page.dart';
+import 'main_page.dart';
+import 'setting_page.dart';
 import 'history_page.dart';
-import 'doc.dart';
+import 'helper.dart';
 import '../pages/home_page.dart';
 
 final pages = [HistoryPage(), MainPage(), SettingPage()];

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tflitestyletransfer/demopage/copytransfer_page.dart';
-import 'doc.dart';
+import 'copytransfer_page.dart';
+import 'helper.dart';
 import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -176,8 +176,8 @@ class _MainPageState extends State<MainPage> {
             });
           },
           onLongPress: () {
-            // launch("url");
-            showDoc(context);
+            showDoc(context,
+                "https://github.com/SystemErrorWang/White-box-Cartoonization");
           },
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),

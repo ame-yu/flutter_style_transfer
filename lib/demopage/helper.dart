@@ -2,12 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewExample extends StatefulWidget {
+class WebViewModal extends StatefulWidget {
+  String url;
   @override
-  WebViewExampleState createState() => WebViewExampleState();
+  WebViewModalState createState() => WebViewModalState(this.url);
+
+  WebViewModal({this.url = "about:blank"});
 }
 
-class WebViewExampleState extends State<WebViewExample> {
+class WebViewModalState extends State<WebViewModal> {
+  String url;
+  WebViewModalState(this.url);
+
   @override
   void initState() {
     super.initState();
@@ -18,22 +24,24 @@ class WebViewExampleState extends State<WebViewExample> {
   @override
   Widget build(BuildContext context) {
     return WebView(
-      initialUrl: 'https://systemerrorwang.github.io/White-box-Cartoonization/',
+      initialUrl: this.url,
     );
   }
 }
 
-showDoc(BuildContext context) {
+showDoc(BuildContext context, String url) {
   var modal = Dialog(
     clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
     insetPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 60.0),
-    child: WebViewExample(),
+    child: WebViewModal(
+      url: url,
+    ),
   );
   showDialog(
     useSafeArea: false,
     context: context,
-    child: modal,
+    builder: (context) => modal,
     barrierDismissible: true,
   );
 }

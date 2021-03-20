@@ -21,7 +21,7 @@ class ImageTransferFacade {
     //! May cause exception
     interpreterPrediction = await Interpreter.fromAsset(_predictionModelFile);
     interpreterTransform = await Interpreter.fromAsset(_transformModelFile);
-    interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
+    // interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
   }
 
   Future<Uint8List> loadStyleImage(String styleImagePath) async {

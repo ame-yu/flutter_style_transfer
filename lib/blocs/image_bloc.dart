@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tflitestyletransfer/services/image/image_facade.dart';
+import '../services/image/image_facade.dart';
 
 part 'image_state.dart';
 
@@ -51,9 +51,11 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
         await Future.delayed(const Duration(milliseconds: 1000));
 
-        var styleImageData = await _imageFacade.loadStyleImage(event.styleImagePath);
+        var styleImageData =
+            await _imageFacade.loadStyleImage(event.styleImagePath);
         if (styleImageData != null) {
-          var transferImage = await _imageFacade.transfer(state.originImage, styleImageData);
+          var transferImage =
+              await _imageFacade.transfer(state.originImage, styleImageData);
           yield state.copyWith(
             transferImage: transferImage,
             isLoading: false,
