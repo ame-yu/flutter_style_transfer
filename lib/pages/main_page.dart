@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'copytransfer_page.dart';
-import 'helper.dart';
+import '../components/helper.dart';
 import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         return state.originImage != null
             ? TransferPage()
             : Container(
-                color: nightModeColor,
+                color: Theme.of(context).backgroundColor,
                 child: SafeArea(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,27 +51,29 @@ class _MainPageState extends State<MainPage> {
                             ? getStyleSelectorWidget()
                             : getGanSelectorWidget(),
                       ),
-                      FlatButton(
-                        color: nightModeColor,
-                        onPressed: () async {
-                          imageBloc.add(ImageEvent.loadImage());
-                          await Future<void>.delayed(
-                              const Duration(seconds: 1));
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/display", (route) => false);
-                        },
-                        child: Container(
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white10,
+                          border: Border.all(
+                            color: Color(0xff425362),
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 20.0,
                             vertical: 30.0,
                           ),
-                          decoration: BoxDecoration(
-                            color: Colors.white10,
-                            border: Border.all(
-                              color: Color(0xff425362),
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                          onPressed: () async {
+                            imageBloc.add(ImageEvent.loadImage());
+                            await Future<void>.delayed(
+                                const Duration(seconds: 1));
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/display", (route) => false);
+                          },
                           child: Column(
                             children: [
                               Text(
@@ -153,10 +155,8 @@ class _MainPageState extends State<MainPage> {
                     : null),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: FlatButton.icon(
-                    color: Colors.white12,
+                child: TextButton.icon(
                     onPressed: changeSelector,
-                    textColor: Colors.red,
                     icon: Icon(Icons.rotate_90_degrees_ccw_outlined),
                     label: Text(
                       "More",
@@ -211,11 +211,12 @@ class _MainPageState extends State<MainPage> {
             margin: const EdgeInsets.symmetric(horizontal: 5),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: FlatButton.icon(
-                    color: Colors.white12,
+                child: TextButton.icon(
                     onPressed: changeSelector,
-                    textColor: Colors.red,
-                    icon: Icon(Icons.rotate_90_degrees_ccw_outlined),
+                    icon: Icon(
+                      Icons.rotate_90_degrees_ccw_outlined,
+                      color: Colors.red,
+                    ),
                     label: Text(
                       "GAN",
                       style: TextStyle(color: Colors.white),
