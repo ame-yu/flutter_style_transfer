@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'image_bloc.dart';
 
@@ -9,16 +9,18 @@ part of 'image_bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$ImageStateTearOff {
   const _$ImageStateTearOff();
 
-// ignore: unused_element
   _ImageState call(
-      {Uint8List originImage,
-      Uint8List transferImage,
-      bool modelLoaded,
-      bool isLoading}) {
+      {Uint8List? originImage,
+      Uint8List? transferImage,
+      bool modelLoaded = false,
+      bool isLoading = false}) {
     return _ImageState(
       originImage: originImage,
       transferImage: transferImage,
@@ -29,17 +31,18 @@ class _$ImageStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ImageState = _$ImageStateTearOff();
 
 /// @nodoc
 mixin _$ImageState {
-  Uint8List get originImage;
-  Uint8List get transferImage;
-  bool get modelLoaded;
-  bool get isLoading;
+  Uint8List? get originImage => throw _privateConstructorUsedError;
+  Uint8List? get transferImage => throw _privateConstructorUsedError;
+  bool get modelLoaded => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
-  $ImageStateCopyWith<ImageState> get copyWith;
+  @JsonKey(ignore: true)
+  $ImageStateCopyWith<ImageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -48,8 +51,8 @@ abstract class $ImageStateCopyWith<$Res> {
           ImageState value, $Res Function(ImageState) then) =
       _$ImageStateCopyWithImpl<$Res>;
   $Res call(
-      {Uint8List originImage,
-      Uint8List transferImage,
+      {Uint8List? originImage,
+      Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading});
 }
@@ -64,21 +67,28 @@ class _$ImageStateCopyWithImpl<$Res> implements $ImageStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object originImage = freezed,
-    Object transferImage = freezed,
-    Object modelLoaded = freezed,
-    Object isLoading = freezed,
+    Object? originImage = freezed,
+    Object? transferImage = freezed,
+    Object? modelLoaded = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       originImage: originImage == freezed
           ? _value.originImage
-          : originImage as Uint8List,
+          : originImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       transferImage: transferImage == freezed
           ? _value.transferImage
-          : transferImage as Uint8List,
-      modelLoaded:
-          modelLoaded == freezed ? _value.modelLoaded : modelLoaded as bool,
-      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
+          : transferImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      modelLoaded: modelLoaded == freezed
+          ? _value.modelLoaded
+          : modelLoaded // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -90,8 +100,8 @@ abstract class _$ImageStateCopyWith<$Res> implements $ImageStateCopyWith<$Res> {
       __$ImageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Uint8List originImage,
-      Uint8List transferImage,
+      {Uint8List? originImage,
+      Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading});
 }
@@ -108,21 +118,28 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object originImage = freezed,
-    Object transferImage = freezed,
-    Object modelLoaded = freezed,
-    Object isLoading = freezed,
+    Object? originImage = freezed,
+    Object? transferImage = freezed,
+    Object? modelLoaded = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_ImageState(
       originImage: originImage == freezed
           ? _value.originImage
-          : originImage as Uint8List,
+          : originImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       transferImage: transferImage == freezed
           ? _value.transferImage
-          : transferImage as Uint8List,
-      modelLoaded:
-          modelLoaded == freezed ? _value.modelLoaded : modelLoaded as bool,
-      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
+          : transferImage // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      modelLoaded: modelLoaded == freezed
+          ? _value.modelLoaded
+          : modelLoaded // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -130,14 +147,19 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_ImageState implements _ImageState {
   const _$_ImageState(
-      {this.originImage, this.transferImage, this.modelLoaded, this.isLoading});
+      {this.originImage,
+      this.transferImage,
+      this.modelLoaded = false,
+      this.isLoading = false});
 
   @override
-  final Uint8List originImage;
+  final Uint8List? originImage;
   @override
-  final Uint8List transferImage;
+  final Uint8List? transferImage;
+  @JsonKey(defaultValue: false)
   @override
   final bool modelLoaded;
+  @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 
@@ -172,6 +194,7 @@ class _$_ImageState implements _ImageState {
       const DeepCollectionEquality().hash(modelLoaded) ^
       const DeepCollectionEquality().hash(isLoading);
 
+  @JsonKey(ignore: true)
   @override
   _$ImageStateCopyWith<_ImageState> get copyWith =>
       __$ImageStateCopyWithImpl<_ImageState>(this, _$identity);
@@ -179,86 +202,89 @@ class _$_ImageState implements _ImageState {
 
 abstract class _ImageState implements ImageState {
   const factory _ImageState(
-      {Uint8List originImage,
-      Uint8List transferImage,
+      {Uint8List? originImage,
+      Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading}) = _$_ImageState;
 
   @override
-  Uint8List get originImage;
+  Uint8List? get originImage => throw _privateConstructorUsedError;
   @override
-  Uint8List get transferImage;
+  Uint8List? get transferImage => throw _privateConstructorUsedError;
   @override
-  bool get modelLoaded;
+  bool get modelLoaded => throw _privateConstructorUsedError;
   @override
-  bool get isLoading;
+  bool get isLoading => throw _privateConstructorUsedError;
   @override
-  _$ImageStateCopyWith<_ImageState> get copyWith;
+  @JsonKey(ignore: true)
+  _$ImageStateCopyWith<_ImageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$ImageEventTearOff {
   const _$ImageEventTearOff();
 
-// ignore: unused_element
   LoadModel loadModel() {
     return const LoadModel();
   }
 
-// ignore: unused_element
-  LoadImage loadImage() {
-    return const LoadImage();
+  LoadImage loadImage(String styleImagePath) {
+    return LoadImage(
+      styleImagePath,
+    );
   }
 
-// ignore: unused_element
   TransferImage transferImage(String styleImagePath) {
     return TransferImage(
       styleImagePath,
     );
   }
 
-// ignore: unused_element
   ResetImage resetImage() {
     return const ResetImage();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ImageEvent = _$ImageEventTearOff();
 
 /// @nodoc
 mixin _$ImageEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loadModel(),
-    @required Result loadImage(),
-    @required Result transferImage(String styleImagePath),
-    @required Result resetImage(),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loadModel(),
-    Result loadImage(),
-    Result transferImage(String styleImagePath),
-    Result resetImage(),
-    @required Result orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loadModel(LoadModel value),
-    @required Result loadImage(LoadImage value),
-    @required Result transferImage(TransferImage value),
-    @required Result resetImage(ResetImage value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loadModel(LoadModel value),
-    Result loadImage(LoadImage value),
-    Result transferImage(TransferImage value),
-    Result resetImage(ResetImage value),
-    @required Result orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -312,29 +338,24 @@ class _$LoadModel implements LoadModel {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loadModel(),
-    @required Result loadImage(),
-    @required Result transferImage(String styleImagePath),
-    @required Result resetImage(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return loadModel();
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loadModel(),
-    Result loadImage(),
-    Result transferImage(String styleImagePath),
-    Result resetImage(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loadModel != null) {
       return loadModel();
     }
@@ -343,29 +364,24 @@ class _$LoadModel implements LoadModel {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loadModel(LoadModel value),
-    @required Result loadImage(LoadImage value),
-    @required Result transferImage(TransferImage value),
-    @required Result resetImage(ResetImage value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return loadModel(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loadModel(LoadModel value),
-    Result loadImage(LoadImage value),
-    Result transferImage(TransferImage value),
-    Result resetImage(ResetImage value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loadModel != null) {
       return loadModel(this);
     }
@@ -381,6 +397,7 @@ abstract class LoadModel implements ImageEvent {
 abstract class $LoadImageCopyWith<$Res> {
   factory $LoadImageCopyWith(LoadImage value, $Res Function(LoadImage) then) =
       _$LoadImageCopyWithImpl<$Res>;
+  $Res call({String styleImagePath});
 }
 
 /// @nodoc
@@ -391,81 +408,97 @@ class _$LoadImageCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
 
   @override
   LoadImage get _value => super._value as LoadImage;
+
+  @override
+  $Res call({
+    Object? styleImagePath = freezed,
+  }) {
+    return _then(LoadImage(
+      styleImagePath == freezed
+          ? _value.styleImagePath
+          : styleImagePath // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 class _$LoadImage implements LoadImage {
-  const _$LoadImage();
+  const _$LoadImage(this.styleImagePath);
+
+  @override
+  final String styleImagePath;
 
   @override
   String toString() {
-    return 'ImageEvent.loadImage()';
+    return 'ImageEvent.loadImage(styleImagePath: $styleImagePath)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is LoadImage);
+    return identical(this, other) ||
+        (other is LoadImage &&
+            (identical(other.styleImagePath, styleImagePath) ||
+                const DeepCollectionEquality()
+                    .equals(other.styleImagePath, styleImagePath)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(styleImagePath);
+
+  @JsonKey(ignore: true)
+  @override
+  $LoadImageCopyWith<LoadImage> get copyWith =>
+      _$LoadImageCopyWithImpl<LoadImage>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loadModel(),
-    @required Result loadImage(),
-    @required Result transferImage(String styleImagePath),
-    @required Result resetImage(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
-    return loadImage();
+    return loadImage(styleImagePath);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loadModel(),
-    Result loadImage(),
-    Result transferImage(String styleImagePath),
-    Result resetImage(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loadImage != null) {
-      return loadImage();
+      return loadImage(styleImagePath);
     }
     return orElse();
   }
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loadModel(LoadModel value),
-    @required Result loadImage(LoadImage value),
-    @required Result transferImage(TransferImage value),
-    @required Result resetImage(ResetImage value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return loadImage(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loadModel(LoadModel value),
-    Result loadImage(LoadImage value),
-    Result transferImage(TransferImage value),
-    Result resetImage(ResetImage value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loadImage != null) {
       return loadImage(this);
     }
@@ -474,7 +507,12 @@ class _$LoadImage implements LoadImage {
 }
 
 abstract class LoadImage implements ImageEvent {
-  const factory LoadImage() = _$LoadImage;
+  const factory LoadImage(String styleImagePath) = _$LoadImage;
+
+  String get styleImagePath => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LoadImageCopyWith<LoadImage> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -497,19 +535,20 @@ class _$TransferImageCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object styleImagePath = freezed,
+    Object? styleImagePath = freezed,
   }) {
     return _then(TransferImage(
       styleImagePath == freezed
           ? _value.styleImagePath
-          : styleImagePath as String,
+          : styleImagePath // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 class _$TransferImage implements TransferImage {
-  const _$TransferImage(this.styleImagePath) : assert(styleImagePath != null);
+  const _$TransferImage(this.styleImagePath);
 
   @override
   final String styleImagePath;
@@ -533,35 +572,31 @@ class _$TransferImage implements TransferImage {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(styleImagePath);
 
+  @JsonKey(ignore: true)
   @override
   $TransferImageCopyWith<TransferImage> get copyWith =>
       _$TransferImageCopyWithImpl<TransferImage>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loadModel(),
-    @required Result loadImage(),
-    @required Result transferImage(String styleImagePath),
-    @required Result resetImage(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return transferImage(styleImagePath);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loadModel(),
-    Result loadImage(),
-    Result transferImage(String styleImagePath),
-    Result resetImage(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (transferImage != null) {
       return transferImage(styleImagePath);
     }
@@ -570,29 +605,24 @@ class _$TransferImage implements TransferImage {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loadModel(LoadModel value),
-    @required Result loadImage(LoadImage value),
-    @required Result transferImage(TransferImage value),
-    @required Result resetImage(ResetImage value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return transferImage(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loadModel(LoadModel value),
-    Result loadImage(LoadImage value),
-    Result transferImage(TransferImage value),
-    Result resetImage(ResetImage value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (transferImage != null) {
       return transferImage(this);
     }
@@ -603,8 +633,10 @@ class _$TransferImage implements TransferImage {
 abstract class TransferImage implements ImageEvent {
   const factory TransferImage(String styleImagePath) = _$TransferImage;
 
-  String get styleImagePath;
-  $TransferImageCopyWith<TransferImage> get copyWith;
+  String get styleImagePath => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TransferImageCopyWith<TransferImage> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -643,29 +675,24 @@ class _$ResetImage implements ResetImage {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loadModel(),
-    @required Result loadImage(),
-    @required Result transferImage(String styleImagePath),
-    @required Result resetImage(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return resetImage();
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loadModel(),
-    Result loadImage(),
-    Result transferImage(String styleImagePath),
-    Result resetImage(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resetImage != null) {
       return resetImage();
     }
@@ -674,29 +701,24 @@ class _$ResetImage implements ResetImage {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loadModel(LoadModel value),
-    @required Result loadImage(LoadImage value),
-    @required Result transferImage(TransferImage value),
-    @required Result resetImage(ResetImage value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
   }) {
-    assert(loadModel != null);
-    assert(loadImage != null);
-    assert(transferImage != null);
-    assert(resetImage != null);
     return resetImage(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loadModel(LoadModel value),
-    Result loadImage(LoadImage value),
-    Result transferImage(TransferImage value),
-    Result resetImage(ResetImage value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resetImage != null) {
       return resetImage(this);
     }

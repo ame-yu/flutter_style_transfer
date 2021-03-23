@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../model/history.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../services/image/image_facade.dart';
 
@@ -12,8 +13,7 @@ part 'image_bloc.freezed.dart';
 
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   final ImageFacade _imageFacade;
-
-  ImageBloc(this._imageFacade) : super(ImageState.initial());
+  ImageBloc(this._imageFacade) : super(ImageState());
 
   @override
   Stream<ImageState> mapEventToState(ImageEvent event) async* {
@@ -27,46 +27,33 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       },
       loadImage: (event) async* {
         yield state.copyWith(
-          originImage: null,
-          isLoading: true,
+          originImage: await _imageFacade.loadImage(),
+          isLoading: false,
         );
-
-        var image = await _imageFacade.loadImage();
-        if (image == null) {
-          yield state.copyWith(
-            originImage: null,
-            isLoading: false,
-          );
-        } else {
-          yield state.copyWith(
-            originImage: image,
-            isLoading: false,
-          );
-        }
+        await Future.delayed(const Duration(milliseconds: 1000));
+        yield* mapEventToState(ImageEvent.transferImage(event.styleImagePath));
       },
       transferImage: (event) async* {
         yield state.copyWith(
           isLoading: true,
         );
-
         await Future.delayed(const Duration(milliseconds: 1000));
 
         var styleImageData =
             await _imageFacade.loadStyleImage(event.styleImagePath);
-        if (styleImageData != null) {
-          var transferImage =
-              await _imageFacade.transfer(state.originImage, styleImageData);
-          yield state.copyWith(
-            transferImage: transferImage,
-            isLoading: false,
-          );
-        } else {
-          yield state.copyWith(
-            isLoading: false,
-          );
-        }
+
+        var transferImage =
+            await _imageFacade.transfer(state.originImage!, styleImageData);
+        yield state.copyWith(
+          transferImage: transferImage,
+          isLoading: false,
+        );
+        // print("Transfer complete, start to save");
+
+        // historyRecord.saveHistoryRecord(transferImage);
       },
       resetImage: (event) async* {
+        print("123");
         yield state.copyWith(
           originImage: null,
           transferImage: null,

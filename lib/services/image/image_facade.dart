@@ -7,7 +7,7 @@ class ImageFacade {
   ImagePickerFacade _imagePickerFacade = ImagePickerFacade();
   ImageTransferFacade _imageTransferFacade = ImageTransferFacade();
 
-  Future<Uint8List> loadImage() async {
+  Future<Uint8List?> loadImage() async {
     return _imagePickerFacade.loadImage();
   }
 

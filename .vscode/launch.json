@@ -7,13 +7,9 @@
         {
             "name": "style_transfer",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--no-sound-null-safety"]
         },
-        {
-            "name": "tflite_flutter_plugin",
-            "cwd": "plugins\\tflite_flutter_plugin",
-            "request": "launch",
-            "type": "dart"
-        }
-    ]
+    ],
+    
 }

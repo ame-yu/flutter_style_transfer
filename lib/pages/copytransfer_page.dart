@@ -42,8 +42,8 @@ class _TransferPageState extends State<TransferPage> {
                 children: [
                   Expanded(
                     child: state.transferImage == null
-                        ? Image.memory(state.originImage)
-                        : Image.memory(state.transferImage),
+                        ? Image.memory(state.originImage!)
+                        : Image.memory(state.transferImage!),
                   ),
                   SizedBox(
                     height: 20,

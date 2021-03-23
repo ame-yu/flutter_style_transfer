@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'copytransfer_page.dart';
 import '../components/helper.dart';
+import '../components/loading.dart';
+import '../components/utils.dart';
 import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int selector = 0;
-  int selectStyle = -1;
-  ImageBloc imageBloc;
+  bool more = false;
+  int selectStyle = 1;
+  late ImageBloc imageBloc;
   @override
   void initState() {
     super.initState();
@@ -22,36 +24,72 @@ class _MainPageState extends State<MainPage> {
 
   changeSelector() {
     setState(() {
-      selector ^= 1;
-      selectStyle = -1;
+      more = !more;
+      selectStyle = 1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final nightModeColor = Color(0xff222222);
     return BlocBuilder<ImageBloc, ImageState>(builder: (context, state) {
       imageBloc = BlocProvider.of<ImageBloc>(context);
-      if (state.modelLoaded == false) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else {
-        return state.originImage != null
-            ? TransferPage()
-            : Container(
-                color: Theme.of(context).backgroundColor,
-                child: SafeArea(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 80,
-                        child: selector == 0
-                            ? getStyleSelectorWidget()
-                            : getGanSelectorWidget(),
-                      ),
-                      Container(
+      // if (state.modelLoaded == false) {
+      //   return Center(
+      //     child: CircularProgressIndicator(),
+      //   );
+      // } else {
+      return Container(
+          color: Theme.of(context).backgroundColor,
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 90,
+                  child: more ? styleSelectorWidget() : ganSelectorWidget(),
+                ),
+                state.originImage != null
+                    ? Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.width,
+                            child: Image.memory(
+                              state.transferImage ?? state.originImage!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          state.isLoading
+                              ? loadingWidget()
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton.icon(
+                                        onPressed: () {
+                                          imageBloc
+                                              .add(ImageEvent.resetImage());
+                                        },
+                                        icon: Icon(Icons.cached),
+                                        label: Text("Reset")),
+                                    SizedBox(
+                                      width: 40.0,
+                                    ),
+                                    ElevatedButton.icon(
+                                        onPressed: () async {
+                                          await ImageGallerySaver.saveImage(
+                                              state.transferImage!);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      "Saved image to gallery.")));
+                                        },
+                                        icon: Icon(Icons.save_outlined),
+                                        label: Text("Save"))
+                                  ],
+                                )
+                        ],
+                      )
+                    : Container(
                         margin: EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
                           color: Colors.white10,
@@ -68,111 +106,97 @@ class _MainPageState extends State<MainPage> {
                             vertical: 30.0,
                           ),
                           onPressed: () async {
-                            imageBloc.add(ImageEvent.loadImage());
-                            await Future<void>.delayed(
-                                const Duration(seconds: 1));
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "/display", (route) => false);
+                            imageBloc.add(ImageEvent.loadImage(
+                                "assets/images/style$selectStyle.jpg"));
+
+                            //Once generate complete
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             ResultPage()));
+                            // Navigator.pushNamedAndRemoveUntil(context, "/display", (route) => false);
                           },
-                          child: Column(
-                            children: [
-                              Text(
-                                'ADD IMAGE',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      RawMaterialButton(
-                                        fillColor: Colors.white,
-                                        elevation: 0.0,
-                                        padding: const EdgeInsets.all(12.0),
-                                        shape: CircleBorder(),
-                                        constraints: BoxConstraints(),
-                                        child: Icon(
-                                          Icons.image_rounded,
-                                          size: 22.0,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Image',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                          child: centerImageSelectorWidget(),
                         ),
                       ),
-                      SizedBox(
-                        height: 15.0,
-                      )
-                    ],
-                  ),
-                ));
-      }
+                SizedBox(
+                  height: 15.0,
+                )
+              ],
+            ),
+          ));
     });
   }
 
   @override
   dispose() {
     super.dispose();
-    imageBloc?.close();
+    // In same page should always opened
+    // imageBloc.close();
   }
 
-  ListView getGanSelectorWidget() {
+  Column centerImageSelectorWidget() {
+    return Column(
+      children: [
+        Text(
+          'ADD IMAGE',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                RawMaterialButton(
+                  fillColor: Colors.white,
+                  elevation: 0.0,
+                  padding: const EdgeInsets.all(12.0),
+                  shape: CircleBorder(),
+                  constraints: BoxConstraints(),
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.image_rounded,
+                    size: 22.0,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Image',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+  ListView ganSelectorWidget() {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final idx = index + 100;
         if (index == 0) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-                border: selectStyle == idx
-                    ? Border.all(
-                        color: Colors.white,
-                        width: 2,
-                      )
-                    : null),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: TextButton.icon(
-                    onPressed: changeSelector,
-                    icon: Icon(Icons.rotate_90_degrees_ccw_outlined),
-                    label: Text(
-                      "More",
-                      style: TextStyle(color: Colors.white),
-                    ))),
-          );
+          return swapButton(lable: "More");
         }
         var stylePath = 'assets/images/gan$index.jpg';
         return GestureDetector(
           onTap: () {
-            if (selectStyle == idx) {
-              return;
-            }
-
             setState(() {
-              selectStyle = idx;
+              selectStyle = index;
             });
           },
           onLongPress: () {
@@ -180,16 +204,8 @@ class _MainPageState extends State<MainPage> {
                 "https://github.com/SystemErrorWang/White-box-Cartoonization");
           },
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              border: selectStyle == idx
-                  ? Border.all(
-                      color: Colors.white,
-                      width: 2,
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(20),
-            ),
+            margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+            decoration: selectStyle == index ? activeStyleDecoration : null,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(stylePath),
@@ -201,27 +217,11 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  ListView getStyleSelectorWidget() {
+  ListView styleSelectorWidget() {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        if (index == 0)
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: TextButton.icon(
-                    onPressed: changeSelector,
-                    icon: Icon(
-                      Icons.rotate_90_degrees_ccw_outlined,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "GAN",
-                      style: TextStyle(color: Colors.white),
-                    ))),
-          );
+        if (index == 0) return swapButton(color: Colors.red, lable: "GAN");
         var stylePath = 'assets/images/style$index.jpg';
         return GestureDetector(
           onTap: () {
@@ -236,16 +236,8 @@ class _MainPageState extends State<MainPage> {
             // imageBloc.add(ImageEvent.transferImage(stylePath));
           },
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              border: selectStyle == index
-                  ? Border.all(
-                      color: Colors.white,
-                      width: 2,
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(20),
-            ),
+            decoration: selectStyle == index ? activeStyleDecoration : null,
+            margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(stylePath),
@@ -256,4 +248,37 @@ class _MainPageState extends State<MainPage> {
       itemCount: 26,
     );
   }
+
+  Container swapButton({required String lable, Color? color = null}) {
+    return Container(
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: TextButton.icon(
+              onPressed: changeSelector,
+              icon: Icon(
+                Icons.rotate_90_degrees_ccw_outlined,
+                color: color,
+              ),
+              label: Text(
+                lable,
+                style: TextStyle(color: Colors.white),
+              ))),
+    );
+  }
 }
+
+final activeStyleDecoration = BoxDecoration(
+  boxShadow: [
+    CustomBoxShadow(
+        color: Colors.white, blurRadius: 8.0, blurStyle: BlurStyle.outer),
+  ],
+  borderRadius: BorderRadius.circular(20),
+);
+
+
+// BlocListener<BlocA, BlocAState>(
+//   listener: (context, state) {
+//     // do stuff here based on BlocA's state
+//   },
+//   child: Container(),
+// )

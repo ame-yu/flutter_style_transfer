@@ -1,18 +1,17 @@
 part of '../main.dart';
 
 final pages = [HistoryPage(), MainPage(), SettingPage()];
-final bottomNavColor = Color.fromRGBO(30, 30, 30, 1);
 
-class MyHome extends StatefulWidget {
-  MyHome({Key key}) : super(key: key);
+class App extends StatefulWidget {
+  App({Key? key}) : super(key: key);
 
   @override
-  _MyHomeState createState() => _MyHomeState();
+  _AppState createState() => _AppState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _AppState extends State<App> {
   int _selectedIndex = 1;
-  PageController _pageController;
+  late PageController _pageController;
   @override
   void initState() {
     super.initState();
@@ -50,17 +49,17 @@ class _MyHomeState extends State<MyHome> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            backgroundColor: bottomNavColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             icon: Icon(Icons.history),
             label: "History",
           ),
           BottomNavigationBarItem(
-            backgroundColor: bottomNavColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             icon: Icon(Icons.add_a_photo_outlined),
             label: "New",
           ),
           BottomNavigationBarItem(
-            backgroundColor: bottomNavColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             icon: Icon(Icons.settings),
             label: "Setting",
           ),

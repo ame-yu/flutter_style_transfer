@@ -13,14 +13,14 @@ class ImageTransferFacade {
   static const int MODEL_PREDICTION_IMAGE_SIZE = 256;
   static const int MODEL_CARTOONGAN_IMAGE_SIZE = 520;
 
-  Interpreter interpreterPrediction;
-  Interpreter interpreterTransform;
-  Interpreter interpreterCartoongan;
+  Interpreter? interpreterPrediction;
+  Interpreter? interpreterTransform;
+  Interpreter? interpreterCartoongan;
 
   Future<void> loadModel() async {
-    //! May cause exception
     interpreterPrediction = await Interpreter.fromAsset(_predictionModelFile);
     interpreterTransform = await Interpreter.fromAsset(_transformModelFile);
+    //! May cause exception
     // interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
   }
 
@@ -29,17 +29,18 @@ class ImageTransferFacade {
     return styleImageByteData.buffer.asUint8List();
   }
 
-  Future<Uint8List> transfer(Uint8List originData, Uint8List styleData) async {
+  Future<Uint8List> transfer(Uint8List originData, Uint8List styleData,
+      {double mean = 0, double std = 255}) async {
     var originImage = img.decodeImage(originData);
-    var modelTransferImage = img.copyResize(originImage,
+    var modelTransferImage = img.copyResize(originImage!,
         width: MODEL_TRANSFER_IMAGE_SIZE, height: MODEL_TRANSFER_IMAGE_SIZE);
     var modelTransferInput = _imageToByteListUInt8(
-        modelTransferImage, MODEL_TRANSFER_IMAGE_SIZE, 0, 255);
+        modelTransferImage, MODEL_TRANSFER_IMAGE_SIZE, mean, std);
 
     var styleImage = img.decodeImage(styleData);
 
     // style_image 256 256 3
-    var modelPredictionImage = img.copyResize(styleImage,
+    var modelPredictionImage = img.copyResize(styleImage!,
         width: MODEL_PREDICTION_IMAGE_SIZE,
         height: MODEL_PREDICTION_IMAGE_SIZE);
 
@@ -59,8 +60,8 @@ class ImageTransferFacade {
     outputsForPrediction[0] = styleBottleneck;
 
     // style predict model
-    interpreterPrediction.runForMultipleInputs(
-        inputsForPrediction, outputsForPrediction);
+    interpreterPrediction!
+        .runForMultipleInputs(inputsForPrediction, outputsForPrediction);
 
     // content_image + styleBottleneck
     var inputsForStyleTransfer = [modelTransferInput, styleBottleneck];
@@ -78,8 +79,8 @@ class ImageTransferFacade {
     ];
     outputsForStyleTransfer[0] = outputImageData;
 
-    interpreterTransform.runForMultipleInputs(
-        inputsForStyleTransfer, outputsForStyleTransfer);
+    interpreterTransform!
+        .runForMultipleInputs(inputsForStyleTransfer, outputsForStyleTransfer);
 
     var outputImage =
         _convertArrayToImage(outputImageData, MODEL_TRANSFER_IMAGE_SIZE);
@@ -87,7 +88,7 @@ class ImageTransferFacade {
     var flipOutputImage = img.flipHorizontal(rotateOutputImage);
     var resultImage = img.copyResize(flipOutputImage,
         width: originImage.width, height: originImage.height);
-    return img.encodeJpg(resultImage);
+    return Uint8List.fromList(img.encodeJpg(resultImage));
   }
 
   img.Image _convertArrayToImage(
