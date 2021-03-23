@@ -229,10 +229,18 @@ class _$ImageEventTearOff {
     return const LoadModel();
   }
 
-  LoadImage loadImage(String styleImagePath) {
-    return LoadImage(
+  ArbitraryTransfer arbitraryTransfer(String styleImagePath) {
+    return ArbitraryTransfer(
       styleImagePath,
     );
+  }
+
+  GANTransfer ganTransfer() {
+    return const GANTransfer();
+  }
+
+  LoadImage loadImage() {
+    return const LoadImage();
   }
 
   TransferImage transferImage(String styleImagePath) {
@@ -254,7 +262,9 @@ mixin _$ImageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadModel,
-    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
     required TResult Function(String styleImagePath) transferImage,
     required TResult Function() resetImage,
   }) =>
@@ -262,7 +272,9 @@ mixin _$ImageEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadModel,
-    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
     TResult Function(String styleImagePath)? transferImage,
     TResult Function()? resetImage,
     required TResult orElse(),
@@ -271,6 +283,8 @@ mixin _$ImageEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
     required TResult Function(LoadImage value) loadImage,
     required TResult Function(TransferImage value) transferImage,
     required TResult Function(ResetImage value) resetImage,
@@ -279,6 +293,8 @@ mixin _$ImageEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
     TResult Function(LoadImage value)? loadImage,
     TResult Function(TransferImage value)? transferImage,
     TResult Function(ResetImage value)? resetImage,
@@ -340,7 +356,9 @@ class _$LoadModel implements LoadModel {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadModel,
-    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
     required TResult Function(String styleImagePath) transferImage,
     required TResult Function() resetImage,
   }) {
@@ -351,7 +369,9 @@ class _$LoadModel implements LoadModel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadModel,
-    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
     TResult Function(String styleImagePath)? transferImage,
     TResult Function()? resetImage,
     required TResult orElse(),
@@ -366,6 +386,8 @@ class _$LoadModel implements LoadModel {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
     required TResult Function(LoadImage value) loadImage,
     required TResult Function(TransferImage value) transferImage,
     required TResult Function(ResetImage value) resetImage,
@@ -377,6 +399,8 @@ class _$LoadModel implements LoadModel {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
     TResult Function(LoadImage value)? loadImage,
     TResult Function(TransferImage value)? transferImage,
     TResult Function(ResetImage value)? resetImage,
@@ -394,26 +418,29 @@ abstract class LoadModel implements ImageEvent {
 }
 
 /// @nodoc
-abstract class $LoadImageCopyWith<$Res> {
-  factory $LoadImageCopyWith(LoadImage value, $Res Function(LoadImage) then) =
-      _$LoadImageCopyWithImpl<$Res>;
+abstract class $ArbitraryTransferCopyWith<$Res> {
+  factory $ArbitraryTransferCopyWith(
+          ArbitraryTransfer value, $Res Function(ArbitraryTransfer) then) =
+      _$ArbitraryTransferCopyWithImpl<$Res>;
   $Res call({String styleImagePath});
 }
 
 /// @nodoc
-class _$LoadImageCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
-    implements $LoadImageCopyWith<$Res> {
-  _$LoadImageCopyWithImpl(LoadImage _value, $Res Function(LoadImage) _then)
-      : super(_value, (v) => _then(v as LoadImage));
+class _$ArbitraryTransferCopyWithImpl<$Res>
+    extends _$ImageEventCopyWithImpl<$Res>
+    implements $ArbitraryTransferCopyWith<$Res> {
+  _$ArbitraryTransferCopyWithImpl(
+      ArbitraryTransfer _value, $Res Function(ArbitraryTransfer) _then)
+      : super(_value, (v) => _then(v as ArbitraryTransfer));
 
   @override
-  LoadImage get _value => super._value as LoadImage;
+  ArbitraryTransfer get _value => super._value as ArbitraryTransfer;
 
   @override
   $Res call({
     Object? styleImagePath = freezed,
   }) {
-    return _then(LoadImage(
+    return _then(ArbitraryTransfer(
       styleImagePath == freezed
           ? _value.styleImagePath
           : styleImagePath // ignore: cast_nullable_to_non_nullable
@@ -423,21 +450,21 @@ class _$LoadImageCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$LoadImage implements LoadImage {
-  const _$LoadImage(this.styleImagePath);
+class _$ArbitraryTransfer implements ArbitraryTransfer {
+  const _$ArbitraryTransfer(this.styleImagePath);
 
   @override
   final String styleImagePath;
 
   @override
   String toString() {
-    return 'ImageEvent.loadImage(styleImagePath: $styleImagePath)';
+    return 'ImageEvent.arbitraryTransfer(styleImagePath: $styleImagePath)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is LoadImage &&
+        (other is ArbitraryTransfer &&
             (identical(other.styleImagePath, styleImagePath) ||
                 const DeepCollectionEquality()
                     .equals(other.styleImagePath, styleImagePath)));
@@ -450,31 +477,35 @@ class _$LoadImage implements LoadImage {
 
   @JsonKey(ignore: true)
   @override
-  $LoadImageCopyWith<LoadImage> get copyWith =>
-      _$LoadImageCopyWithImpl<LoadImage>(this, _$identity);
+  $ArbitraryTransferCopyWith<ArbitraryTransfer> get copyWith =>
+      _$ArbitraryTransferCopyWithImpl<ArbitraryTransfer>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadModel,
-    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
     required TResult Function(String styleImagePath) transferImage,
     required TResult Function() resetImage,
   }) {
-    return loadImage(styleImagePath);
+    return arbitraryTransfer(styleImagePath);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadModel,
-    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
     TResult Function(String styleImagePath)? transferImage,
     TResult Function()? resetImage,
     required TResult orElse(),
   }) {
-    if (loadImage != null) {
-      return loadImage(styleImagePath);
+    if (arbitraryTransfer != null) {
+      return arbitraryTransfer(styleImagePath);
     }
     return orElse();
   }
@@ -483,6 +514,211 @@ class _$LoadImage implements LoadImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
+  }) {
+    return arbitraryTransfer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
+  }) {
+    if (arbitraryTransfer != null) {
+      return arbitraryTransfer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ArbitraryTransfer implements ImageEvent {
+  const factory ArbitraryTransfer(String styleImagePath) = _$ArbitraryTransfer;
+
+  String get styleImagePath => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ArbitraryTransferCopyWith<ArbitraryTransfer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GANTransferCopyWith<$Res> {
+  factory $GANTransferCopyWith(
+          GANTransfer value, $Res Function(GANTransfer) then) =
+      _$GANTransferCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$GANTransferCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
+    implements $GANTransferCopyWith<$Res> {
+  _$GANTransferCopyWithImpl(
+      GANTransfer _value, $Res Function(GANTransfer) _then)
+      : super(_value, (v) => _then(v as GANTransfer));
+
+  @override
+  GANTransfer get _value => super._value as GANTransfer;
+}
+
+/// @nodoc
+class _$GANTransfer implements GANTransfer {
+  const _$GANTransfer();
+
+  @override
+  String toString() {
+    return 'ImageEvent.ganTransfer()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is GANTransfer);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
+  }) {
+    return ganTransfer();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
+  }) {
+    if (ganTransfer != null) {
+      return ganTransfer();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
+    required TResult Function(LoadImage value) loadImage,
+    required TResult Function(TransferImage value) transferImage,
+    required TResult Function(ResetImage value) resetImage,
+  }) {
+    return ganTransfer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
+    TResult Function(LoadImage value)? loadImage,
+    TResult Function(TransferImage value)? transferImage,
+    TResult Function(ResetImage value)? resetImage,
+    required TResult orElse(),
+  }) {
+    if (ganTransfer != null) {
+      return ganTransfer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GANTransfer implements ImageEvent {
+  const factory GANTransfer() = _$GANTransfer;
+}
+
+/// @nodoc
+abstract class $LoadImageCopyWith<$Res> {
+  factory $LoadImageCopyWith(LoadImage value, $Res Function(LoadImage) then) =
+      _$LoadImageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$LoadImageCopyWithImpl<$Res> extends _$ImageEventCopyWithImpl<$Res>
+    implements $LoadImageCopyWith<$Res> {
+  _$LoadImageCopyWithImpl(LoadImage _value, $Res Function(LoadImage) _then)
+      : super(_value, (v) => _then(v as LoadImage));
+
+  @override
+  LoadImage get _value => super._value as LoadImage;
+}
+
+/// @nodoc
+class _$LoadImage implements LoadImage {
+  const _$LoadImage();
+
+  @override
+  String toString() {
+    return 'ImageEvent.loadImage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is LoadImage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadModel,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
+    required TResult Function(String styleImagePath) transferImage,
+    required TResult Function() resetImage,
+  }) {
+    return loadImage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadModel,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
+    TResult Function(String styleImagePath)? transferImage,
+    TResult Function()? resetImage,
+    required TResult orElse(),
+  }) {
+    if (loadImage != null) {
+      return loadImage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
     required TResult Function(LoadImage value) loadImage,
     required TResult Function(TransferImage value) transferImage,
     required TResult Function(ResetImage value) resetImage,
@@ -494,6 +730,8 @@ class _$LoadImage implements LoadImage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
     TResult Function(LoadImage value)? loadImage,
     TResult Function(TransferImage value)? transferImage,
     TResult Function(ResetImage value)? resetImage,
@@ -507,12 +745,7 @@ class _$LoadImage implements LoadImage {
 }
 
 abstract class LoadImage implements ImageEvent {
-  const factory LoadImage(String styleImagePath) = _$LoadImage;
-
-  String get styleImagePath => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $LoadImageCopyWith<LoadImage> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory LoadImage() = _$LoadImage;
 }
 
 /// @nodoc
@@ -581,7 +814,9 @@ class _$TransferImage implements TransferImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadModel,
-    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
     required TResult Function(String styleImagePath) transferImage,
     required TResult Function() resetImage,
   }) {
@@ -592,7 +827,9 @@ class _$TransferImage implements TransferImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadModel,
-    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
     TResult Function(String styleImagePath)? transferImage,
     TResult Function()? resetImage,
     required TResult orElse(),
@@ -607,6 +844,8 @@ class _$TransferImage implements TransferImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
     required TResult Function(LoadImage value) loadImage,
     required TResult Function(TransferImage value) transferImage,
     required TResult Function(ResetImage value) resetImage,
@@ -618,6 +857,8 @@ class _$TransferImage implements TransferImage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
     TResult Function(LoadImage value)? loadImage,
     TResult Function(TransferImage value)? transferImage,
     TResult Function(ResetImage value)? resetImage,
@@ -677,7 +918,9 @@ class _$ResetImage implements ResetImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadModel,
-    required TResult Function(String styleImagePath) loadImage,
+    required TResult Function(String styleImagePath) arbitraryTransfer,
+    required TResult Function() ganTransfer,
+    required TResult Function() loadImage,
     required TResult Function(String styleImagePath) transferImage,
     required TResult Function() resetImage,
   }) {
@@ -688,7 +931,9 @@ class _$ResetImage implements ResetImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadModel,
-    TResult Function(String styleImagePath)? loadImage,
+    TResult Function(String styleImagePath)? arbitraryTransfer,
+    TResult Function()? ganTransfer,
+    TResult Function()? loadImage,
     TResult Function(String styleImagePath)? transferImage,
     TResult Function()? resetImage,
     required TResult orElse(),
@@ -703,6 +948,8 @@ class _$ResetImage implements ResetImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadModel value) loadModel,
+    required TResult Function(ArbitraryTransfer value) arbitraryTransfer,
+    required TResult Function(GANTransfer value) ganTransfer,
     required TResult Function(LoadImage value) loadImage,
     required TResult Function(TransferImage value) transferImage,
     required TResult Function(ResetImage value) resetImage,
@@ -714,6 +961,8 @@ class _$ResetImage implements ResetImage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadModel value)? loadModel,
+    TResult Function(ArbitraryTransfer value)? arbitraryTransfer,
+    TResult Function(GANTransfer value)? ganTransfer,
     TResult Function(LoadImage value)? loadImage,
     TResult Function(TransferImage value)? transferImage,
     TResult Function(ResetImage value)? resetImage,

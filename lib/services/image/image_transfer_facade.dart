@@ -11,7 +11,7 @@ class ImageTransferFacade {
 
   static const int MODEL_TRANSFER_IMAGE_SIZE = 384;
   static const int MODEL_PREDICTION_IMAGE_SIZE = 256;
-  static const int MODEL_CARTOONGAN_IMAGE_SIZE = 520;
+  static const int MODEL_CARTOONGAN_IMAGE_SIZE = 512;
 
   Interpreter? interpreterPrediction;
   Interpreter? interpreterTransform;
@@ -20,13 +20,48 @@ class ImageTransferFacade {
   Future<void> loadModel() async {
     interpreterPrediction = await Interpreter.fromAsset(_predictionModelFile);
     interpreterTransform = await Interpreter.fromAsset(_transformModelFile);
-    //! May cause exception
     interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
   }
 
   Future<Uint8List> loadStyleImage(String styleImagePath) async {
     var styleImageByteData = await rootBundle.load(styleImagePath);
     return styleImageByteData.buffer.asUint8List();
+  }
+
+  Future<Uint8List> ganTransfer(Uint8List originData,
+      {double mean = 0, double std = 255}) async {
+    final defaultMean = 127.5;
+    final defaultStn = 127.5;
+    var originImage = img.decodeImage(originData);
+    var modelTransferImage = img.copyResize(originImage!,
+        width: MODEL_CARTOONGAN_IMAGE_SIZE,
+        height: MODEL_CARTOONGAN_IMAGE_SIZE);
+    var modelTransferInput = _imageToByteListUInt8(modelTransferImage,
+        MODEL_CARTOONGAN_IMAGE_SIZE, defaultMean, defaultStn);
+
+    var outputsForGAN = Map<int, dynamic>();
+    // stylized_image 1 512 512 3
+    var outputImageData = [
+      List.generate(
+        MODEL_CARTOONGAN_IMAGE_SIZE,
+        (index) => List.generate(
+          MODEL_CARTOONGAN_IMAGE_SIZE,
+          (index) => List.generate(3, (index) => 0.0),
+        ),
+      ),
+    ];
+    outputsForGAN[0] = outputImageData;
+    interpreterCartoongan!
+        .runForMultipleInputs([modelTransferInput], outputsForGAN);
+
+    var outputImage =
+        _convertArray255ToImage(outputImageData, MODEL_CARTOONGAN_IMAGE_SIZE);
+
+    var rotateOutputImage = img.copyRotate(outputImage, 90);
+    var flipOutputImage = img.flipHorizontal(rotateOutputImage);
+    var resultImage = img.copyResize(flipOutputImage,
+        width: originImage.width, height: originImage.height);
+    return Uint8List.fromList(img.encodeJpg(resultImage));
   }
 
   Future<Uint8List> transfer(Uint8List originData, Uint8List styleData,
@@ -89,6 +124,20 @@ class ImageTransferFacade {
     var resultImage = img.copyResize(flipOutputImage,
         width: originImage.width, height: originImage.height);
     return Uint8List.fromList(img.encodeJpg(resultImage));
+  }
+
+  img.Image _convertArray255ToImage(
+      List<List<List<List<double>>>> imageArray, int inputSize) {
+    img.Image image = img.Image.rgb(inputSize, inputSize);
+    for (var x = 0; x < imageArray[0].length; x++) {
+      for (var y = 0; y < imageArray[0][0].length; y++) {
+        var r = (imageArray[0][x][y][0] * 127.5 + 127.5).toInt();
+        var g = (imageArray[0][x][y][1] * 127.5 + 127.5).toInt();
+        var b = (imageArray[0][x][y][2] * 127.5 + 127.5).toInt();
+        image.setPixelRgba(x, y, r, g, b);
+      }
+    }
+    return image;
   }
 
   img.Image _convertArrayToImage(

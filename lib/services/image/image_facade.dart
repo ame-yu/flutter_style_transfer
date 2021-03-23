@@ -22,4 +22,8 @@ class ImageFacade {
   Future<Uint8List> transfer(Uint8List originData, Uint8List styleData) async {
     return _imageTransferFacade.transfer(originData, styleData);
   }
+
+  Future<Uint8List> ganTransfer(Uint8List originData) async {
+    return _imageTransferFacade.ganTransfer(originData);
+  }
 }

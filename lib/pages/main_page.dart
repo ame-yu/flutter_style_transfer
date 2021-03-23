@@ -103,13 +103,14 @@ class _MainPageState extends State<MainPage> {
                           ),
                           onPressed: () async {
                             if (more) {
-                              imageBloc.add(ImageEvent.loadImage(
+                              imageBloc.add(ImageEvent.arbitraryTransfer(
                                   "assets/images/style$selectStyle.jpg"));
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          "GAN service not availabel yet.")));
+                              imageBloc.add(ImageEvent.ganTransfer());
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //         content: Text(
+                              //             "GAN service not availabel yet.")));
                             }
                             //Once generate complete
                             // Navigator.push(
@@ -234,8 +235,8 @@ class _MainPageState extends State<MainPage> {
             });
 
             if (state.originImage != null) {
-              imageBloc.add(
-                  ImageEvent.loadImage("assets/images/style$selectStyle.jpg"));
+              imageBloc.add(ImageEvent.arbitraryTransfer(
+                  "assets/images/style$selectStyle.jpg"));
             }
 
             // imageBloc.add(ImageEvent.transferImage(stylePath));

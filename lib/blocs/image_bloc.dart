@@ -25,13 +25,32 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           isLoading: false,
         );
       },
+      arbitraryTransfer: (event) async* {
+        yield* mapEventToState(ImageEvent.loadImage());
+        await Future.delayed(const Duration(milliseconds: 1000));
+        yield* mapEventToState(ImageEvent.transferImage(event.styleImagePath));
+      },
+      ganTransfer: (event) async* {
+        yield* mapEventToState(ImageEvent.loadImage());
+        await Future.delayed(const Duration(milliseconds: 1000));
+
+        yield state.copyWith(
+          isLoading: true,
+        );
+
+        await Future.delayed(const Duration(milliseconds: 1000));
+
+        var transferImage = await _imageFacade.ganTransfer(state.originImage!);
+        yield state.copyWith(
+          transferImage: transferImage,
+          isLoading: false,
+        );
+      },
       loadImage: (event) async* {
         yield state.copyWith(
           originImage: await _imageFacade.loadImage(),
           isLoading: false,
         );
-        await Future.delayed(const Duration(milliseconds: 1000));
-        yield* mapEventToState(ImageEvent.transferImage(event.styleImagePath));
       },
       transferImage: (event) async* {
         yield state.copyWith(
