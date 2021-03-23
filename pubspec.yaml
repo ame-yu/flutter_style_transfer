@@ -11,10 +11,11 @@ dependencies:
     sdk: flutter
   #image_gallery_saver: ^1.6.8
   image_gallery_saver:
-    git: 
-      url: https://github.com/dvaldivia/image_gallery_saver
+    git:
+      url: https://github.com/fzyzcjy/image_gallery_saver.git
       ref: master
   sembast: ^3.0.0+4
+  equatable: ^2.0.0
   path_provider: ^2.0.1
   url_launcher: ^5.7.10
   webview_flutter: ^2.0.2

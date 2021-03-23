@@ -4,7 +4,6 @@ import '../components/loading.dart';
 import '../components/utils.dart';
 import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -75,13 +74,9 @@ class _MainPageState extends State<MainPage> {
                                       width: 40.0,
                                     ),
                                     ElevatedButton.icon(
-                                        onPressed: () async {
-                                          await ImageGallerySaver.saveImage(
-                                              state.transferImage!);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      "Saved image to gallery.")));
+                                        onPressed: () {
+                                          saveImage(state.transferImage!,
+                                              context: context);
                                         },
                                         icon: Icon(Icons.save_outlined),
                                         label: Text("Save"))

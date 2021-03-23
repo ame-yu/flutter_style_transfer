@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 ShaderMask gradientMask(AssetImage image,
     {Color bottomColor = Colors.black87}) {
@@ -45,4 +48,17 @@ class CustomBoxShadow extends BoxShadow {
     }());
     return result;
   }
+}
+
+saveImage(Uint8List imageData, {BuildContext? context}) async {
+      await ImageGallerySaver.saveImage(imageData);
+      if(context != null){
+ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      "Saved image to gallery.")));
+      }
+                                          
+
+
 }
