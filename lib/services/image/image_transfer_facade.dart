@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 
 class ImageTransferFacade {
@@ -21,7 +21,7 @@ class ImageTransferFacade {
     interpreterPrediction = await Interpreter.fromAsset(_predictionModelFile);
     interpreterTransform = await Interpreter.fromAsset(_transformModelFile);
     //! May cause exception
-    // interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
+    interpreterCartoongan = await Interpreter.fromAsset(_cartoonganModelFile);
   }
 
   Future<Uint8List> loadStyleImage(String styleImagePath) async {

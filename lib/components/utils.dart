@@ -51,14 +51,9 @@ class CustomBoxShadow extends BoxShadow {
 }
 
 saveImage(Uint8List imageData, {BuildContext? context}) async {
-      await ImageGallerySaver.saveImage(imageData);
-      if(context != null){
-ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      "Saved image to gallery.")));
-      }
-                                          
-
-
+  await ImageGallerySaver.saveImage(imageData);
+  if (context != null) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Saved image to gallery.")));
+  }
 }

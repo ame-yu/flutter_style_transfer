@@ -45,7 +45,8 @@ class _MainPageState extends State<MainPage> {
               children: [
                 Container(
                   height: 90,
-                  child: more ? styleSelectorWidget() : ganSelectorWidget(),
+                  child:
+                      more ? styleSelectorWidget(state) : ganSelectorWidget(),
                 ),
                 state.originImage != null
                     ? Column(
@@ -101,9 +102,15 @@ class _MainPageState extends State<MainPage> {
                             vertical: 30.0,
                           ),
                           onPressed: () async {
-                            imageBloc.add(ImageEvent.loadImage(
-                                "assets/images/style$selectStyle.jpg"));
-
+                            if (more) {
+                              imageBloc.add(ImageEvent.loadImage(
+                                  "assets/images/style$selectStyle.jpg"));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          "GAN service not availabel yet.")));
+                            }
                             //Once generate complete
                             // Navigator.push(
                             //     context,
@@ -212,7 +219,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  ListView styleSelectorWidget() {
+  ListView styleSelectorWidget(ImageState state) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
@@ -220,13 +227,16 @@ class _MainPageState extends State<MainPage> {
         var stylePath = 'assets/images/style$index.jpg';
         return GestureDetector(
           onTap: () {
-            if (selectStyle == index) {
-              return;
-            }
+            if (selectStyle == index) return;
 
             setState(() {
               selectStyle = index;
             });
+
+            if (state.originImage != null) {
+              imageBloc.add(
+                  ImageEvent.loadImage("assets/images/style$selectStyle.jpg"));
+            }
 
             // imageBloc.add(ImageEvent.transferImage(stylePath));
           },
