@@ -101,7 +101,8 @@ class _HistoryPageState extends State<HistoryPage> {
   SizedBox background() {
     return SizedBox.expand(
       child: gradientMask(AssetImage("assets/images/bg1.jpg"),
-          bottomColor: Color.fromRGBO(30, 30, 30, 1)),
+          bottomColor: Theme.of(context).backgroundColor,
+          maskColor: Theme.of(context).backgroundColor.withOpacity(.5)),
     );
   }
 }

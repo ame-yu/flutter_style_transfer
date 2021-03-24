@@ -14,12 +14,30 @@ import 'package:path_provider/path_provider.dart';
 part 'pages/app_home.dart';
 
 final theme = ThemeData(
+    appBarTheme: AppBarTheme(
+      color: Colors.transparent,
+      elevation: 0.0,
+    ),
+    // highlightColor: Colors.black,
+    focusColor: Colors.black,
+    backgroundColor: Color.fromRGBO(230, 230, 230, 1),
+    brightness: Brightness.light,
+    iconTheme: IconThemeData(color: Colors.black),
+    dialogBackgroundColor: Colors.grey.withOpacity(.3),
+    accentColor: Colors.black,
+    textTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)));
+
+final darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: Colors.transparent,
     elevation: 0.0,
   ),
+  hintColor: Color(0xff425362),
+  focusColor: Colors.white,
+  dialogBackgroundColor: Colors.white10,
   backgroundColor: Color.fromRGBO(30, 30, 30, 1),
   brightness: Brightness.light,
+  accentColor: Colors.white,
 );
 
 void main() async {
@@ -27,28 +45,29 @@ void main() async {
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
   runApp(MaterialApp(
-      title: 'Image transfer',
-      routes: {
-        "/": (context) {
-          final imageBloc = ImageBloc(ImageFacade())
-            ..add(ImageEvent.loadModel());
-          final historyBloc = HistoryBloc(imageBloc);
-          //Provider使用懒加载，所以要让对imageBloc监听生效就要先加载完
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<ImageBloc>(
-                create: (context) => imageBloc,
-              ),
-              BlocProvider<HistoryBloc>(
-                create: (context) => historyBloc,
-              )
-            ],
-            child: App(),
-          );
-        },
+    title: 'Image transfer',
+    routes: {
+      "/": (context) {
+        final imageBloc = ImageBloc(ImageFacade())..add(ImageEvent.loadModel());
+        final historyBloc = HistoryBloc(imageBloc);
+        //Provider使用懒加载，所以要让对imageBloc监听生效就要先加载完
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<ImageBloc>(
+              create: (context) => imageBloc,
+            ),
+            BlocProvider<HistoryBloc>(
+              create: (context) => historyBloc,
+            )
+          ],
+          child: App(),
+        );
       },
-      debugShowCheckedModeBanner: false,
-      theme: theme));
+    },
+    debugShowCheckedModeBanner: false,
+    theme: theme,
+    darkTheme: darkTheme,
+  ));
 
   if (Platform.isAndroid) {
     //透明导航栏

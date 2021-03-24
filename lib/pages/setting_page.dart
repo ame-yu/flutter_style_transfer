@@ -6,17 +6,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 const textStyle = TextStyle(color: Colors.white);
 
-Text whiteText(String str, {double size = 16.0, color = Colors.white}) {
-  return Text(
-    str,
-    style: TextStyle(fontSize: size, color: color),
-  );
-}
-
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Text coloredText(String str,
+        {bool bold = false, double size = 16.0, Color? color}) {
+      return Text(
+        str,
+        style: TextStyle(
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            fontSize: size,
+            color: color ??
+                (size >= 16
+                    ? Theme.of(context).accentColor
+                    : Theme.of(context).accentColor.withOpacity(.5))),
+      );
+    }
+
     return BlocProvider(
         create: (_) => SettingCubit(),
         child: BlocBuilder<SettingCubit, Setting>(
@@ -25,35 +32,36 @@ class SettingPage extends StatelessWidget {
             children: [
               SizedBox.expand(
                 child: gradientMask(AssetImage("assets/images/bg2.jpg"),
-                    bottomColor: Color.fromRGBO(30, 30, 30, 1)),
+                    bottomColor: Theme.of(context).backgroundColor,
+                    maskColor:
+                        Theme.of(context).backgroundColor.withOpacity(.5)),
               ),
               Container(
                 child: ListView(
                   children: [
                     SwitchListTile(
-                      title: whiteText(
+                      title: coloredText(
                         "History record",
                       ),
-                      subtitle: whiteText(
+                      subtitle: coloredText(
                           "Automatic save photo after transfer.",
                           size: 14,
-                          color: Colors.white54),
+                          color: Theme.of(context).accentColor.withOpacity(.7)),
                       value: state.autoSave,
                       onChanged: (val) {
                         context.read<SettingCubit>().toggleAutoSave();
                       },
                     ),
                     CheckboxListTile(
-                      title: whiteText(
+                      title: coloredText(
                         "Update check",
                       ),
-                      subtitle: whiteText("Coming soon...",
-                          size: 14, color: Colors.white54),
+                      subtitle: coloredText("Coming soon...", size: 14),
                       value: false,
                       onChanged: (bool? value) {},
                     ),
                     ListTile(
-                      title: whiteText("About"),
+                      title: coloredText("About"),
                       onTap: () {
                         showAboutDialog(
                           applicationName: "Image transfer",

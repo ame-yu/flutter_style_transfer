@@ -47,10 +47,15 @@ class _AppState extends State<App> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Theme.of(context).accentColor.withOpacity(.5),
         items: [
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).backgroundColor,
-            icon: Icon(Icons.history),
+            icon: Icon(
+              Icons.history,
+              // color: Theme.of(context).primaryColorDark,
+            ),
             label: "History",
           ),
           BottomNavigationBarItem(

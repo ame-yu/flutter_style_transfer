@@ -8,7 +8,8 @@
             "name": "style_transfer",
             "request": "launch",
             "type": "dart",
-            "args": ["--no-sound-null-safety"]
+            // "flutterMode": "profile",
+            "args": ["--no-sound-null-safety"],
         },
     ],
     

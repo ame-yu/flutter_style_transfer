@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 ShaderMask gradientMask(AssetImage image,
-    {Color bottomColor = Colors.black87}) {
+    {Color bottomColor = Colors.black87, Color maskColor = Colors.black54}) {
   return ShaderMask(
     child: Image(
       image: image,
       fit: BoxFit.fill,
-      color: Colors.black54, //半黑蒙层
+      color: maskColor, //蒙层
       colorBlendMode: BlendMode.srcATop,
     ),
     shaderCallback: (Rect bounds) {

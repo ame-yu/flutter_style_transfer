@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
                     : Container(
                         margin: EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
-                          color: Colors.white10,
+                          color: Theme.of(context).dialogBackgroundColor,
                           border: Border.all(
                             color: Color(0xff425362),
                           ),
@@ -112,13 +112,6 @@ class _MainPageState extends State<MainPage> {
                               //         content: Text(
                               //             "GAN service not availabel yet.")));
                             }
-                            //Once generate complete
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             ResultPage()));
-                            // Navigator.pushNamedAndRemoveUntil(context, "/display", (route) => false);
                           },
                           child: centerImageSelectorWidget(),
                         ),
@@ -139,14 +132,24 @@ class _MainPageState extends State<MainPage> {
     // imageBloc.close();
   }
 
+  activeStyleDecoration() => BoxDecoration(
+        boxShadow: [
+          CustomBoxShadow(
+              color: Theme.of(context).focusColor,
+              blurRadius: 8.0,
+              blurStyle: BlurStyle.outer),
+        ],
+        borderRadius: BorderRadius.circular(20),
+      );
+
   Column centerImageSelectorWidget() {
     return Column(
       children: [
         Text(
           'ADD IMAGE',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
+            color: Theme.of(context).accentColor,
+            fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -159,16 +162,14 @@ class _MainPageState extends State<MainPage> {
             Column(
               children: [
                 RawMaterialButton(
-                  fillColor: Colors.white,
+                  fillColor: Theme.of(context).accentColor.withOpacity(.5),
                   elevation: 0.0,
                   padding: const EdgeInsets.all(12.0),
                   shape: CircleBorder(),
                   constraints: BoxConstraints(),
                   onPressed: () {},
-                  child: Icon(
-                    Icons.image_rounded,
-                    size: 22.0,
-                  ),
+                  child: Icon(Icons.image_rounded,
+                      size: 22.0, color: Theme.of(context).backgroundColor),
                 ),
                 SizedBox(
                   height: 5,
@@ -176,7 +177,7 @@ class _MainPageState extends State<MainPage> {
                 Text(
                   'Image',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).accentColor,
                     fontWeight: FontWeight.w400,
                   ),
                 )
@@ -208,7 +209,7 @@ class _MainPageState extends State<MainPage> {
           },
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
-            decoration: selectStyle == index ? activeStyleDecoration : null,
+            decoration: selectStyle == index ? activeStyleDecoration() : null,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(stylePath),
@@ -242,7 +243,7 @@ class _MainPageState extends State<MainPage> {
             // imageBloc.add(ImageEvent.transferImage(stylePath));
           },
           child: Container(
-            decoration: selectStyle == index ? activeStyleDecoration : null,
+            decoration: selectStyle == index ? activeStyleDecoration() : null,
             margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -267,24 +268,8 @@ class _MainPageState extends State<MainPage> {
               ),
               label: Text(
                 lable,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).accentColor),
               ))),
     );
   }
 }
-
-final activeStyleDecoration = BoxDecoration(
-  boxShadow: [
-    CustomBoxShadow(
-        color: Colors.white, blurRadius: 8.0, blurStyle: BlurStyle.outer),
-  ],
-  borderRadius: BorderRadius.circular(20),
-);
-
-
-// BlocListener<BlocA, BlocAState>(
-//   listener: (context, state) {
-//     // do stuff here based on BlocA's state
-//   },
-//   child: Container(),
-// )
