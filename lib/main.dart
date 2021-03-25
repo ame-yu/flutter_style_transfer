@@ -10,35 +10,9 @@ import './services/image/image_facade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import './themes.dart';
 
 part 'pages/app_home.dart';
-
-final theme = ThemeData(
-    appBarTheme: AppBarTheme(
-      color: Colors.transparent,
-      elevation: 0.0,
-    ),
-    // highlightColor: Colors.black,
-    focusColor: Colors.black,
-    backgroundColor: Color.fromRGBO(230, 230, 230, 1),
-    brightness: Brightness.light,
-    iconTheme: IconThemeData(color: Colors.black),
-    dialogBackgroundColor: Colors.grey.withOpacity(.3),
-    accentColor: Colors.black,
-    textTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)));
-
-final darkTheme = ThemeData(
-  appBarTheme: AppBarTheme(
-    color: Colors.transparent,
-    elevation: 0.0,
-  ),
-  hintColor: Color(0xff425362),
-  focusColor: Colors.white,
-  dialogBackgroundColor: Colors.white10,
-  backgroundColor: Color.fromRGBO(30, 30, 30, 1),
-  brightness: Brightness.light,
-  accentColor: Colors.white,
-);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

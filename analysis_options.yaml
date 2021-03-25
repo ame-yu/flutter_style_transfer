@@ -2,3 +2,7 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+linter:
+  rules:
+    prefer-relative-imports: true
+    avoid_types_on_closure_parameters: false

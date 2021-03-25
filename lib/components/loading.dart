@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget loadingWidget() {
+Widget modelLoadingToast() {
   return FittedBox(
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

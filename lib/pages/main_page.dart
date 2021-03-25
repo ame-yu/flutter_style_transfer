@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_style_transfer/pages/image_viewer.dart';
 import '../components/helper.dart';
 import '../components/loading.dart';
 import '../components/utils.dart';
 import '../blocs/image_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../themes.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -49,73 +51,8 @@ class _MainPageState extends State<MainPage> {
                       more ? styleSelectorWidget(state) : ganSelectorWidget(),
                 ),
                 state.originImage != null
-                    ? Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.width,
-                            child: Image.memory(
-                              state.transferImage ?? state.originImage!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          state.isLoading
-                              ? loadingWidget()
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton.icon(
-                                        onPressed: () {
-                                          imageBloc
-                                              .add(ImageEvent.resetImage());
-                                        },
-                                        icon: Icon(Icons.cached),
-                                        label: Text("Reset")),
-                                    SizedBox(
-                                      width: 40.0,
-                                    ),
-                                    ElevatedButton.icon(
-                                        onPressed: () {
-                                          saveImage(state.transferImage!,
-                                              context: context);
-                                        },
-                                        icon: Icon(Icons.save_outlined),
-                                        label: Text("Save"))
-                                  ],
-                                )
-                        ],
-                      )
-                    : Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).dialogBackgroundColor,
-                          border: Border.all(
-                            color: Color(0xff425362),
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 30.0,
-                          ),
-                          onPressed: () async {
-                            if (more) {
-                              imageBloc.add(ImageEvent.arbitraryTransfer(
-                                  "assets/images/style$selectStyle.jpg"));
-                            } else {
-                              imageBloc.add(ImageEvent.ganTransfer());
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //     SnackBar(
-                              //         content: Text(
-                              //             "GAN service not availabel yet.")));
-                            }
-                          },
-                          child: centerImageSelectorWidget(),
-                        ),
-                      ),
+                    ? imageWindow(state, context)
+                    : imageSelector(context),
                 SizedBox(
                   height: 15.0,
                 )
@@ -123,6 +60,91 @@ class _MainPageState extends State<MainPage> {
             ),
           ));
     });
+  }
+
+  Container imageSelector(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).centerCardColor,
+        border: Border.all(
+          color: Color(0xff425362),
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 30.0,
+        ),
+        onPressed: () async {
+          if (more) {
+            imageBloc.add(ImageEvent.arbitraryTransfer(
+                "assets/images/style$selectStyle.jpg"));
+          } else {
+            imageBloc.add(ImageEvent.ganTransfer());
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //         content: Text(
+            //             "GAN service not availabel yet.")));
+          }
+        },
+        child: centerImageSelectorWidget(),
+      ),
+    );
+  }
+
+  Stack imageWindow(ImageState state, BuildContext context) {
+    toImageViewer(data) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ImageViewer(data)));
+    }
+
+    return Stack(
+      children: [
+        GestureDetector(
+          onDoubleTap: () {
+            toImageViewer(state.transferImage ?? state.originImage!);
+          },
+          onPanEnd: (details) {
+            toImageViewer(state.transferImage ?? state.originImage!);
+          },
+          child: Container(
+            width: double.infinity,
+            // height: MediaQuery.of(context).size.width,
+            child: Image.memory(
+              state.transferImage ?? state.originImage!,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Center(
+          child: state.isLoading
+              ? modelLoadingToast()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          imageBloc.add(ImageEvent.resetImage());
+                        },
+                        icon: Icon(Icons.cached),
+                        label: Text("Reset")),
+                    SizedBox(
+                      width: 40.0,
+                    ),
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          saveImage(state.transferImage!, context: context);
+                        },
+                        icon: Icon(Icons.save_outlined),
+                        label: Text("Save"))
+                  ],
+                ),
+        )
+      ],
+    );
   }
 
   @override
@@ -236,7 +258,7 @@ class _MainPageState extends State<MainPage> {
             });
 
             if (state.originImage != null) {
-              imageBloc.add(ImageEvent.arbitraryTransfer(
+              imageBloc.add(ImageEvent.transferImage(
                   "assets/images/style$selectStyle.jpg"));
             }
 
@@ -258,6 +280,8 @@ class _MainPageState extends State<MainPage> {
 
   Container swapButton({required String lable, Color? color = null}) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      decoration: BoxDecoration(),
       child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: TextButton.icon(

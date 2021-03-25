@@ -3,6 +3,7 @@ import '../components/utils.dart';
 import '../blocs/setting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../styles.dart';
 
 const textStyle = TextStyle(color: Colors.white);
 
@@ -40,28 +41,54 @@ class SettingPage extends StatelessWidget {
                 child: ListView(
                   children: [
                     SwitchListTile(
-                      title: coloredText(
+                      title: Text(
                         "History record",
+                        style: TextStyles.title1,
                       ),
-                      subtitle: coloredText(
-                          "Automatic save photo after transfer.",
-                          size: 14,
-                          color: Theme.of(context).accentColor.withOpacity(.7)),
+                      subtitle: Text(
+                        "Automatic save photo after transfer.",
+                        style: TextStyles.title2,
+                      ),
                       value: state.autoSave,
                       onChanged: (val) {
                         context.read<SettingCubit>().toggleAutoSave();
                       },
                     ),
-                    CheckboxListTile(
-                      title: coloredText(
-                        "Update check",
+                    ListTile(
+                      title: Text(
+                        "Check update",
+                        style: TextStyles.title1,
                       ),
-                      subtitle: coloredText("Coming soon...", size: 14),
-                      value: false,
-                      onChanged: (bool? value) {},
+                      subtitle: Text(
+                        "current version 1.0.0",
+                        style: TextStyles.title2,
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor:
+                                      Theme.of(context).backgroundColor,
+                                  content: Text(
+                                      "\n\nStyle transfer is up to date.\n\n",
+                                      style: TextStyle(
+                                          color: Theme.of(context).accentColor,
+                                          fontSize: 18.0)),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text("Close"))
+                                  ],
+                                ));
+                      },
                     ),
                     ListTile(
-                      title: coloredText("About"),
+                      title: Text(
+                        "About",
+                        style: TextStyles.title1,
+                      ),
                       onTap: () {
                         showAboutDialog(
                           applicationName: "Image transfer",

@@ -37,8 +37,7 @@ class _AppState extends State<App> {
     return Scaffold(
       body: SizedBox.expand(
         child: PageView(
-          //禁止滚动切换页面
-          physics: NeverScrollableScrollPhysics(),
+          physics: PageScrollPhysics(),
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _selectedIndex = index);
@@ -47,6 +46,7 @@ class _AppState extends State<App> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 10.0,
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Theme.of(context).accentColor.withOpacity(.5),
         items: [

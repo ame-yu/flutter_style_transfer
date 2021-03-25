@@ -29,6 +29,8 @@ dependencies:
   simple_animations: ^3.0.3
   flutter_slidable: ^0.6.0-nullsafety.0
   freezed_annotation: ^0.14.1
+  extended_image: ^4.0.0
+  share: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +40,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.0
   json_serializable: ^4.1.0
 
+# flutter pub run flutter_launcher_icons:main
 flutter_icons:
   android: true
   image_path: "assets/images/appIcon.png"

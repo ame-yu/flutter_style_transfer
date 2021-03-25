@@ -67,9 +67,6 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           transferImage: transferImage,
           isLoading: false,
         );
-        // print("Transfer complete, start to save");
-
-        // historyRecord.saveHistoryRecord(transferImage);
       },
       resetImage: (event) async* {
         print("123");

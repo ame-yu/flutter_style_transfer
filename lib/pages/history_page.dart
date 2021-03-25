@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_style_transfer/pages/image_viewer.dart';
 import '../components/utils.dart';
 import '../blocs/history_bloc.dart';
 
@@ -37,7 +38,13 @@ class _HistoryPageState extends State<HistoryPage> {
                             actionType: SlideActionType.secondary,
                           );
                         },
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ImageViewer(item.content)));
+                        },
                         child: HistoryItem(
                           image: Image.memory(item.content),
                           title: "Test_Image.png",
