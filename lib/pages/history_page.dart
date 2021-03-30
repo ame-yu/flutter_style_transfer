@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_style_transfer/pages/image_viewer.dart';
 import '../components/utils.dart';
 import '../blocs/history_bloc.dart';
+import 'package:share/share.dart';
 
 class HistoryPage extends StatefulWidget {
   HistoryPage({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         },
                         child: HistoryItem(
                           image: Image.memory(item.content),
-                          title: "Test_Image.png",
+                          title: "${item.content.lengthInBytes} ",
                           subTitle: item.time,
                         ),
                       )),
@@ -61,10 +62,14 @@ class _HistoryPageState extends State<HistoryPage> {
                       color: Colors.green.withOpacity(.8),
                     ),
                     IconSlideAction(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                "Oops, this feature is under development...")));
+                      onTap: () async {
+                        var path = await saveImage(item.content);
+                        print(path);
+                        if (path != null && path.isNotEmpty) {
+                          Share.shareFiles([path.replaceFirst("file:", "")]);
+                        } else {
+                          showSnakeBar(context, "Share failed.");
+                        }
                       },
                       caption: "Share",
                       icon: Icons.share,
@@ -127,7 +132,10 @@ class HistoryItem extends StatelessWidget {
       child: Flex(
         direction: Axis.horizontal,
         children: [
-          image,
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 300),
+            child: image,
+          ),
           SizedBox(
             width: 20.0,
           ),

@@ -33,7 +33,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   ) async* {
     yield* event.map(
         addRecord: (event) async* {
-          final time = DateTime.now().toIso8601String();
+          final time = DateTime.now().toIso8601String().substring(0, 19);
           final data = HistoryItem(state.nextKey, time, event.imageData);
           yield state.copyWith(
               nextKey: state.nextKey + 1,

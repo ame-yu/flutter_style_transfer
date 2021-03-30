@@ -34,27 +34,25 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ImageBloc, ImageState>(builder: (context, state) {
       imageBloc = BlocProvider.of<ImageBloc>(context);
-      // if (state.modelLoaded == false) {
-      //   return Center(
-      //     child: CircularProgressIndicator(),
-      //   );
-      // } else {
       return Container(
           color: Theme.of(context).backgroundColor,
           child: SafeArea(
-            child: Column(
+            child: Flex(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              direction: Axis.vertical,
               children: [
                 Container(
                   height: 90,
                   child:
                       more ? styleSelectorWidget(state) : ganSelectorWidget(),
                 ),
-                state.originImage != null
-                    ? imageWindow(state, context)
-                    : imageSelector(context),
+                Flexible(
+                  child: state.originImage != null
+                      ? imageWindow(state, context)
+                      : imageSelector(context),
+                ),
                 SizedBox(
-                  height: 15.0,
+                  height: 0,
                 )
               ],
             ),
@@ -62,40 +60,47 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  Container imageSelector(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).centerCardColor,
-        border: Border.all(
-          color: Color(0xff425362),
+  Widget imageSelector(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * .2,
+          margin: EdgeInsets.symmetric(horizontal: 16.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).centerCardColor,
+            border: Border.all(
+              color: Color(0xff425362),
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: MaterialButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 30.0,
+            ),
+            onPressed: () async {
+              if (more) {
+                imageBloc.add(ImageEvent.arbitraryTransfer(
+                    "assets/images/style$selectStyle.jpg"));
+              } else {
+                imageBloc.add(ImageEvent.ganTransfer());
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //         content: Text(
+                //             "GAN service not availabel yet.")));
+              }
+            },
+            child: centerImageSelectorWidget(),
+          ),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: MaterialButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 30.0,
-        ),
-        onPressed: () async {
-          if (more) {
-            imageBloc.add(ImageEvent.arbitraryTransfer(
-                "assets/images/style$selectStyle.jpg"));
-          } else {
-            imageBloc.add(ImageEvent.ganTransfer());
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(
-            //         content: Text(
-            //             "GAN service not availabel yet.")));
-          }
-        },
-        child: centerImageSelectorWidget(),
-      ),
+      ],
     );
   }
 
-  Stack imageWindow(ImageState state, BuildContext context) {
+  Widget imageWindow(ImageState state, BuildContext context) {
     toImageViewer(data) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ImageViewer(data)));
@@ -113,17 +118,23 @@ class _MainPageState extends State<MainPage> {
           child: Container(
             width: double.infinity,
             // height: MediaQuery.of(context).size.width,
-            child: Image.memory(
-              state.transferImage ?? state.originImage!,
-              fit: BoxFit.fill,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * .75),
+              child: Image.memory(
+                state.transferImage ?? state.originImage!,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
-        Center(
+        Positioned.fill(
+          top: null,
+          bottom: 20,
           child: state.isLoading
               ? modelLoadingToast()
               : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton.icon(
                         onPressed: () {
@@ -142,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                         label: Text("Save"))
                   ],
                 ),
-        )
+        ),
       ],
     );
   }

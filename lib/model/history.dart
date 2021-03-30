@@ -28,16 +28,6 @@ class DbHistory {
     return iter.toList();
   }
 
-  saveHistoryRecord(Uint8List image) async {
-    print("add new pic!");
-    final content = Base64Codec().encode(image);
-    print(content);
-    final time = DateTime.now().toIso8601String();
-    await db!.transaction((txn) async {
-      await historyStore.add(txn, {'time': time, 'content': content});
-    });
-  }
-
   clear(int index) async {
     await db!.transaction((txn) async {
       await historyStore.delete(txn,
