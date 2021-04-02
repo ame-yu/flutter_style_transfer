@@ -17,11 +17,13 @@ class _$ImageStateTearOff {
   const _$ImageStateTearOff();
 
   _ImageState call(
-      {Uint8List? originImage,
+      {String? imageName,
+      Uint8List? originImage,
       Uint8List? transferImage,
       bool modelLoaded = false,
       bool isLoading = false}) {
     return _ImageState(
+      imageName: imageName,
       originImage: originImage,
       transferImage: transferImage,
       modelLoaded: modelLoaded,
@@ -35,6 +37,7 @@ const $ImageState = _$ImageStateTearOff();
 
 /// @nodoc
 mixin _$ImageState {
+  String? get imageName => throw _privateConstructorUsedError;
   Uint8List? get originImage => throw _privateConstructorUsedError;
   Uint8List? get transferImage => throw _privateConstructorUsedError;
   bool get modelLoaded => throw _privateConstructorUsedError;
@@ -51,7 +54,8 @@ abstract class $ImageStateCopyWith<$Res> {
           ImageState value, $Res Function(ImageState) then) =
       _$ImageStateCopyWithImpl<$Res>;
   $Res call(
-      {Uint8List? originImage,
+      {String? imageName,
+      Uint8List? originImage,
       Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading});
@@ -67,12 +71,17 @@ class _$ImageStateCopyWithImpl<$Res> implements $ImageStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? imageName = freezed,
     Object? originImage = freezed,
     Object? transferImage = freezed,
     Object? modelLoaded = freezed,
     Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
+      imageName: imageName == freezed
+          ? _value.imageName
+          : imageName // ignore: cast_nullable_to_non_nullable
+              as String?,
       originImage: originImage == freezed
           ? _value.originImage
           : originImage // ignore: cast_nullable_to_non_nullable
@@ -100,7 +109,8 @@ abstract class _$ImageStateCopyWith<$Res> implements $ImageStateCopyWith<$Res> {
       __$ImageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Uint8List? originImage,
+      {String? imageName,
+      Uint8List? originImage,
       Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading});
@@ -118,12 +128,17 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? imageName = freezed,
     Object? originImage = freezed,
     Object? transferImage = freezed,
     Object? modelLoaded = freezed,
     Object? isLoading = freezed,
   }) {
     return _then(_ImageState(
+      imageName: imageName == freezed
+          ? _value.imageName
+          : imageName // ignore: cast_nullable_to_non_nullable
+              as String?,
       originImage: originImage == freezed
           ? _value.originImage
           : originImage // ignore: cast_nullable_to_non_nullable
@@ -147,11 +162,14 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_ImageState implements _ImageState {
   const _$_ImageState(
-      {this.originImage,
+      {this.imageName,
+      this.originImage,
       this.transferImage,
       this.modelLoaded = false,
       this.isLoading = false});
 
+  @override
+  final String? imageName;
   @override
   final Uint8List? originImage;
   @override
@@ -165,13 +183,16 @@ class _$_ImageState implements _ImageState {
 
   @override
   String toString() {
-    return 'ImageState(originImage: $originImage, transferImage: $transferImage, modelLoaded: $modelLoaded, isLoading: $isLoading)';
+    return 'ImageState(imageName: $imageName, originImage: $originImage, transferImage: $transferImage, modelLoaded: $modelLoaded, isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ImageState &&
+            (identical(other.imageName, imageName) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageName, imageName)) &&
             (identical(other.originImage, originImage) ||
                 const DeepCollectionEquality()
                     .equals(other.originImage, originImage)) &&
@@ -189,6 +210,7 @@ class _$_ImageState implements _ImageState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(imageName) ^
       const DeepCollectionEquality().hash(originImage) ^
       const DeepCollectionEquality().hash(transferImage) ^
       const DeepCollectionEquality().hash(modelLoaded) ^
@@ -202,11 +224,14 @@ class _$_ImageState implements _ImageState {
 
 abstract class _ImageState implements ImageState {
   const factory _ImageState(
-      {Uint8List? originImage,
+      {String? imageName,
+      Uint8List? originImage,
       Uint8List? transferImage,
       bool modelLoaded,
       bool isLoading}) = _$_ImageState;
 
+  @override
+  String? get imageName => throw _privateConstructorUsedError;
   @override
   Uint8List? get originImage => throw _privateConstructorUsedError;
   @override

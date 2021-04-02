@@ -18,11 +18,15 @@ class _ImageViewerState extends State<ImageViewer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SizedBox.expand(
-          child:
-              ExtendedImage.memory(imageData, mode: ExtendedImageMode.gesture)),
+    return ExtendedImageSlidePage(
+      slideAxis: SlideAxis.both,
+      slideType: SlideType.onlyImage,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor.withOpacity(.7),
+        body: SizedBox.expand(
+            child: ExtendedImage.memory(imageData,
+                enableSlideOutPage: true, mode: ExtendedImageMode.gesture)),
+      ),
     );
   }
 }

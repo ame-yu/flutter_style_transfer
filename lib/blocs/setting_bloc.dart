@@ -1,6 +1,4 @@
-import "package:flutter_bloc/flutter_bloc.dart";
 import "package:hydrated_bloc/hydrated_bloc.dart";
-import 'package:flutter/foundation.dart';
 
 enum SettingEvent { openAutoSave, closeAutoSave }
 
@@ -21,17 +19,6 @@ class Setting {
 //         break;
 //     }
 //   }
-
-//   @override
-//   Setting fromJson(Map<String, dynamic> json) {
-//     return Setting(json['autoSave'] as bool);
-//   }
-
-//   @override
-//   Map<String, dynamic> toJson(Setting state) {
-//     return {"autoSave": state.autoSave};
-//   }
-// }
 
 class SettingCubit extends HydratedCubit<Setting> {
   SettingCubit() : super(Setting(false));

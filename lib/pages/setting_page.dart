@@ -91,7 +91,7 @@ class SettingPage extends StatelessWidget {
                       ),
                       onTap: () {
                         showAboutDialog(
-                          applicationName: "Image transfer",
+                          applicationName: "flutter style transfer",
                           applicationVersion: "1.0.0",
                           context: context,
                           applicationIcon: ClipOval(

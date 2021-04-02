@@ -48,7 +48,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         },
                         child: HistoryItem(
                           image: Image.memory(item.content),
-                          title: "${item.content.lengthInBytes} ",
+                          title: item.name,
                           subTitle: item.time,
                         ),
                       )),
@@ -143,11 +143,15 @@ class HistoryItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                this.title,
-                style: TextStyle(color: Colors.white, fontSize: 18),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: Text(
+                  this.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
               ),
-              Text(this.subTitle,
+              Text(this.subTitle.replaceAll("T", "  "),
                   style: TextStyle(color: Colors.white54, fontSize: 14))
             ],
           ),

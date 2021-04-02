@@ -1,20 +1,14 @@
 part of 'history_bloc.dart';
 
-@JsonSerializable()
 class HistoryItem extends Equatable {
   final int key;
   final String time;
-  @JsonKey(fromJson: base64ToUint8List, toJson: uint8ListToBase64)
+  final String name;
   final Uint8List content;
-  HistoryItem(this.key, this.time, this.content);
+  HistoryItem(this.key, this.name, this.time, this.content);
 
   @override
   List<Object?> get props => [key];
-
-  factory HistoryItem.fromJson(Map<String, dynamic> json) =>
-      _$HistoryItemFromJson(json);
-
-  Map<String, dynamic> toJson() => _$HistoryItemToJson(this);
 }
 
 @freezed

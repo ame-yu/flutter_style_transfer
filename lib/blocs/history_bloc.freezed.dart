@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HistoryEventTearOff {
   const _$HistoryEventTearOff();
 
-  _AddRecord addRecord(Uint8List imageData) {
+  _AddRecord addRecord(String name, Uint8List imageData) {
     return _AddRecord(
+      name,
       imageData,
     );
   }
@@ -40,14 +41,14 @@ const $HistoryEvent = _$HistoryEventTearOff();
 mixin _$HistoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List imageData) addRecord,
+    required TResult Function(String name, Uint8List imageData) addRecord,
     required TResult Function(int key) deleteRecord,
     required TResult Function() saveToGallery,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List imageData)? addRecord,
+    TResult Function(String name, Uint8List imageData)? addRecord,
     TResult Function(int key)? deleteRecord,
     TResult Function()? saveToGallery,
     required TResult orElse(),
@@ -91,7 +92,7 @@ abstract class _$AddRecordCopyWith<$Res> {
   factory _$AddRecordCopyWith(
           _AddRecord value, $Res Function(_AddRecord) then) =
       __$AddRecordCopyWithImpl<$Res>;
-  $Res call({Uint8List imageData});
+  $Res call({String name, Uint8List imageData});
 }
 
 /// @nodoc
@@ -105,9 +106,14 @@ class __$AddRecordCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? name = freezed,
     Object? imageData = freezed,
   }) {
     return _then(_AddRecord(
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       imageData == freezed
           ? _value.imageData
           : imageData // ignore: cast_nullable_to_non_nullable
@@ -118,14 +124,16 @@ class __$AddRecordCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
-  const _$_AddRecord(this.imageData);
+  const _$_AddRecord(this.name, this.imageData);
 
+  @override
+  final String name;
   @override
   final Uint8List imageData;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HistoryEvent.addRecord(imageData: $imageData)';
+    return 'HistoryEvent.addRecord(name: $name, imageData: $imageData)';
   }
 
   @override
@@ -133,6 +141,7 @@ class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'HistoryEvent.addRecord'))
+      ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('imageData', imageData));
   }
 
@@ -140,6 +149,8 @@ class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddRecord &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.imageData, imageData) ||
                 const DeepCollectionEquality()
                     .equals(other.imageData, imageData)));
@@ -147,7 +158,9 @@ class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(imageData);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(imageData);
 
   @JsonKey(ignore: true)
   @override
@@ -157,23 +170,23 @@ class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List imageData) addRecord,
+    required TResult Function(String name, Uint8List imageData) addRecord,
     required TResult Function(int key) deleteRecord,
     required TResult Function() saveToGallery,
   }) {
-    return addRecord(imageData);
+    return addRecord(name, imageData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List imageData)? addRecord,
+    TResult Function(String name, Uint8List imageData)? addRecord,
     TResult Function(int key)? deleteRecord,
     TResult Function()? saveToGallery,
     required TResult orElse(),
   }) {
     if (addRecord != null) {
-      return addRecord(imageData);
+      return addRecord(name, imageData);
     }
     return orElse();
   }
@@ -204,8 +217,9 @@ class _$_AddRecord with DiagnosticableTreeMixin implements _AddRecord {
 }
 
 abstract class _AddRecord implements HistoryEvent {
-  const factory _AddRecord(Uint8List imageData) = _$_AddRecord;
+  const factory _AddRecord(String name, Uint8List imageData) = _$_AddRecord;
 
+  String get name => throw _privateConstructorUsedError;
   Uint8List get imageData => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$AddRecordCopyWith<_AddRecord> get copyWith =>
@@ -283,7 +297,7 @@ class _$_DeleteRecord with DiagnosticableTreeMixin implements _DeleteRecord {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List imageData) addRecord,
+    required TResult Function(String name, Uint8List imageData) addRecord,
     required TResult Function(int key) deleteRecord,
     required TResult Function() saveToGallery,
   }) {
@@ -293,7 +307,7 @@ class _$_DeleteRecord with DiagnosticableTreeMixin implements _DeleteRecord {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List imageData)? addRecord,
+    TResult Function(String name, Uint8List imageData)? addRecord,
     TResult Function(int key)? deleteRecord,
     TResult Function()? saveToGallery,
     required TResult orElse(),
@@ -383,7 +397,7 @@ class _$_SaveToGallery with DiagnosticableTreeMixin implements _SaveToGallery {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List imageData) addRecord,
+    required TResult Function(String name, Uint8List imageData) addRecord,
     required TResult Function(int key) deleteRecord,
     required TResult Function() saveToGallery,
   }) {
@@ -393,7 +407,7 @@ class _$_SaveToGallery with DiagnosticableTreeMixin implements _SaveToGallery {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List imageData)? addRecord,
+    TResult Function(String name, Uint8List imageData)? addRecord,
     TResult Function(int key)? deleteRecord,
     TResult Function()? saveToGallery,
     required TResult orElse(),

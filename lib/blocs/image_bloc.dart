@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../model/history.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../services/image/image_facade.dart';
 
@@ -39,7 +38,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         );
 
         await Future.delayed(const Duration(milliseconds: 1000));
-
+        if (state.originImage == null) return;
         var transferImage = await _imageFacade.ganTransfer(state.originImage!);
         yield state.copyWith(
           transferImage: transferImage,
@@ -47,8 +46,10 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         );
       },
       loadImage: (event) async* {
+        var image = await _imageFacade.loadImage();
         yield state.copyWith(
-          originImage: await _imageFacade.loadImage(),
+          imageName: image!.name,
+          originImage: image.data,
           isLoading: false,
         );
       },
