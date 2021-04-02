@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_style_transfer/cubit/setting_cubit.dart';
 import 'pages/setting_page.dart';
 import 'pages/history_page.dart';
 import 'pages/main_page.dart';
@@ -22,16 +23,20 @@ void main() async {
     title: 'Image transfer',
     routes: {
       "/": (context) {
+        final settingCubit = SettingCubit();
         final imageBloc = ImageBloc(ImageFacade())..add(ImageEvent.loadModel());
-        final historyBloc = HistoryBloc(imageBloc);
+        final historyBloc = HistoryBloc(imageBloc, settingCubit);
         //Provider使用懒加载，所以要让对imageBloc监听生效就要先加载完
         return MultiBlocProvider(
           providers: [
             BlocProvider<ImageBloc>(
-              create: (context) => imageBloc,
+              create: (_) => imageBloc,
             ),
             BlocProvider<HistoryBloc>(
-              create: (context) => historyBloc,
+              create: (_) => historyBloc,
+            ),
+            BlocProvider(
+              create: (_) => settingCubit,
             )
           ],
           child: App(),

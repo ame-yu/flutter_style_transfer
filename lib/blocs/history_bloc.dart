@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter_style_transfer/cubit/setting_cubit.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -19,8 +20,10 @@ part 'history_bloc.freezed.dart';
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   late StreamSubscription imageBlocSubscription;
   final ImageBloc imageBloc;
-  HistoryBloc(this.imageBloc) : super(_Initial()) {
+  final SettingCubit settingCubit;
+  HistoryBloc(this.imageBloc, this.settingCubit) : super(_Initial()) {
     imageBlocSubscription = imageBloc.stream.listen((state) {
+      if (settingCubit.state.autoSave == false) return;
       if (state.transferImage != null) {
         add(HistoryEvent.addRecord(state.imageName!, state.transferImage!));
       }

@@ -47,7 +47,11 @@ class _HistoryPageState extends State<HistoryPage> {
                                       ImageViewer(item.content)));
                         },
                         child: HistoryItem(
-                          image: Image.memory(item.content),
+                          image: Image.memory(
+                            item.content,
+                            fit: BoxFit.cover,
+                            height: 120,
+                          ),
                           title: item.name,
                           subTitle: item.time,
                         ),
@@ -133,7 +137,7 @@ class HistoryItem extends StatelessWidget {
         direction: Axis.horizontal,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 300),
+            constraints: BoxConstraints(maxWidth: 120),
             child: image,
           ),
           SizedBox(
