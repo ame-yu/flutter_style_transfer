@@ -1,29 +1,34 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_style_transfer/components/update_alert.dart';
 import '../components/utils.dart';
 import '../cubit/setting_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../styles.dart';
+import 'package:package_info/package_info.dart';
 
 const textStyle = TextStyle(color: Colors.white);
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
+
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  String currentVersion = "";
+
   @override
   Widget build(BuildContext context) {
-    Text coloredText(String str,
-        {bool bold = false, double size = 16.0, Color? color}) {
-      return Text(
-        str,
-        style: TextStyle(
-            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-            fontSize: size,
-            color: color ??
-                (size >= 16
-                    ? Theme.of(context).accentColor
-                    : Theme.of(context).accentColor.withOpacity(.5))),
-      );
+    void queryInfo() async {
+      var version = (await PackageInfo.fromPlatform()).version;
+      setState(() {
+        currentVersion = version;
+      });
     }
+
+    queryInfo();
 
     return BlocBuilder<SettingCubit, SettingState>(
         builder: (BuildContext context, SettingState state) {
@@ -52,35 +57,19 @@ class SettingPage extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(
-                    "Check update",
-                    style: TextStyles.title1,
-                  ),
-                  subtitle: Text(
-                    "current version 1.0.0",
-                    style: TextStyles.title2,
-                  ),
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              backgroundColor:
-                                  Theme.of(context).backgroundColor,
-                              content: Text(
-                                  "\n\nStyle transfer is up to date.\n\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context).accentColor,
-                                      fontSize: 18.0)),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text("Close"))
-                              ],
-                            ));
-                  },
-                ),
+                    title: Text(
+                      "Check update",
+                      style: TextStyles.title1,
+                    ),
+                    subtitle: Text(
+                      currentVersion,
+                      style: TextStyles.title2,
+                    ),
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => UpdateAlert());
+                    }),
                 ListTile(
                   title: Text(
                     "About",

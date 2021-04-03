@@ -1,1 +1,1 @@
-flutter build apk --no-sound-null-safety
+flutter build apk --no-sound-null-safety %1
