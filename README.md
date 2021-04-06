@@ -1,4 +1,6 @@
 # Flutter Style Transfer
+
+[![build_apk](https://github.com/ame-yu/flutter_style_transfer/actions/workflows/build_apk.yml/badge.svg)](https://github.com/ame-yu/flutter_style_transfer/actions/workflows/build_apk.yml)
 # Feature
 - ✨ 集成多种风格转换模型
 - 💾 保存到图库

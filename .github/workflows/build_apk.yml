@@ -1,0 +1,24 @@
+name: build_apk
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  Build_Flutter_APK:
+    runs-on: ubuntu-latest
+    name: Build APK
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '2.0.2'
+    - run: flutter pub get
+    - run: flutter build apk --no-sound-null-safety
+    - uses: actions/upload-artifact@v2
+      with:
+        name: release.zip
+        path: build/app/outputs/apk/release/app-release.apk
