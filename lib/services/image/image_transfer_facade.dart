@@ -39,7 +39,7 @@ class ImageTransferFacade {
     var modelTransferInput = _imageToByteListUInt8(modelTransferImage,
         MODEL_CARTOONGAN_IMAGE_SIZE, defaultMean, defaultStn);
 
-    var outputsForGAN = Map<int, dynamic>();
+    var outputsForGAN = Map<int, Object>();
     // stylized_image 1 512 512 3
     var outputImageData = [
       List.generate(
@@ -86,7 +86,7 @@ class ImageTransferFacade {
     // style_image 1 256 256 3
     var inputsForPrediction = [modelPredictionInput];
     // style_bottleneck 1 1 100
-    var outputsForPrediction = Map<int, dynamic>();
+    var outputsForPrediction = Map<int, Object>();
     var styleBottleneck = [
       [
         [List.generate(100, (index) => 0.0)]
@@ -101,7 +101,7 @@ class ImageTransferFacade {
     // content_image + styleBottleneck
     var inputsForStyleTransfer = [modelTransferInput, styleBottleneck];
 
-    var outputsForStyleTransfer = Map<int, dynamic>();
+    var outputsForStyleTransfer = Map<int, Object>();
     // stylized_image 1 384 384 3
     var outputImageData = [
       List.generate(

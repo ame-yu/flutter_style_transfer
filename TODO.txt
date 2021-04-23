@@ -1,2 +1,1 @@
-1. tflite_flutter依赖不是NullSafe的（等待依赖更新 先使用--no-sound-null-safety参数解决编译问题
-2. 历史记录的持久化
+1. 历史记录的持久化

@@ -10,13 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # image_gallery_saver: ^1.6.8
-  dio: ^4.0.0
-  package_info: ^2.0.0
+  # image_gallery_saver: ^1.6.9
   image_gallery_saver:
     git:
       url: https://github.com/fzyzcjy/image_gallery_saver.git
       ref: master
+  dio: ^4.0.0
+  package_info: ^2.0.0
   json_annotation: ^4.0.1
   sembast: ^3.0.0+4
   equatable: ^2.0.0
@@ -28,9 +28,9 @@ dependencies:
   hydrated_bloc: ^7.0.0
   image: ^3.0.2
   multi_image_picker: ^4.8.0
-  tflite_flutter: ^0.6.0
+  tflite_flutter: ^0.8.0
   simple_animations: ^3.0.3
-  flutter_slidable: ^0.6.0-nullsafety.0
+  flutter_slidable: ^0.6.0
   freezed_annotation: ^0.14.1
   extended_image: ^4.0.0
   share: ^2.0.1
